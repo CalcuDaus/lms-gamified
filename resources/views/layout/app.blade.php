@@ -27,29 +27,29 @@
             <ul
                 class="flex flex-col gap-5 text-2xl bg-linear-to-r from-indigo-800 to-indigo-400 bg-clip-text text-transparent">
                 <li data-tippy-content="Dashboard"
-                    class="hover:bg-indigo-300 hover:text-indigo-800  transition-all duration-300   p-2 rounded-md"><a
+                    class="hover:bg-indigo-300 hover:text-indigo-800  transition-all duration-300 p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-igloo"></i></a></li>
                 <li data-tippy-content="Courses"
-                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300 p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-book-open"></i></a></li>
                 <li data-tippy-content="Leaderboards"
-                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
-                        href=""><i class="fa-solid fa-trophy"></i></a></li>
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300 p-2 rounded-md"><a
+                        href=""><i class="fa-solid fa-trophy"></i></a></li> 
                 <li data-tippy-content="Badges"
-                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300 p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-award"></i></a></li>
                 <li data-tippy-content="Settings"
-                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300 p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-gears"></i></a></li>
             </ul>
         </nav>
-    </aside>
+    </aside>            
     <main class="flex-1">
-        <header class="h-16 p-4 flex items-center gap-3 text-xl text-zinc-600 justify-end dark:text-zinc-100">
+        <header class="h-16 p-4 flex items-center gap-3 text-xl text-[#192132] justify-end dark:text-zinc-100">
             <button id="theme-toggle"
-                class="text-[12px] transition-all duration-300 hover:bg-zinc-200  dark:hover:bg-[#1e283e]  px-3 py-2 rounded-xl flex align-center"><i
+                class="text-[12px] cursor-pointer transition-all duration-300 hover:bg-zinc-200  dark:hover:bg-[#192132]  px-3 py-2 rounded-xl flex align-center"><i
                     class="fa-solid fa-moon text-xl"></i> <span class="mt-px">Swtich Theme</span> </button>
-            <button class=" hover:bg-indigo-100  px-3 py-2 rounded-full flex align-center"><i
+            <button class=" hover:bg-zinc-200 dark:hover:bg-[#192132] d px-3 py-2 rounded-full flex align-center"><i
                     class="fa-solid fa-bell text-xl"></i></button>
         </header>
         @yield('content')

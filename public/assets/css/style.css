@@ -23,18 +23,22 @@ html{
 .theme-animation-dark::before {
     content: "";
     position: fixed;
+    top: -190px;
+    right: -80px;
     inset: 0;
     background: #192132;
-    animation: waveIn 2.6s cubic-bezier(0, 0, 0, 0.84) forwards;
+    animation: waveIn 1.6s cubic-bezier(0.4, 0, 0, 0.84) forwards;
     z-index: -1;
     pointer-events: none;
 }
 .theme-animation-light::before {
     content: "";
     position: fixed;
+    top: -190px;
+    right: -80px;
     inset: 0;
     background: #d9d9d9;
-    animation: waveIn 2.6s cubic-bezier(0, 0, 0, 0.84) forwards;
+    animation: waveIn 1.6s cubic-bezier(0.4, 0, 0, 0.84) forwards;
     z-index: -1;
     pointer-events: none;
 }

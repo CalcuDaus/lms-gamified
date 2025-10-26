@@ -20,96 +20,41 @@
 
 <body class="flex font-['poppins'] box-border bg-[#D9D9D9] dark:bg-[#192132]">
     <aside class="flex flex-col w-20 h-dvh ">
-        <div class="logo">
+        <div class="absolute top-4 left-4">
             <img src="{{ asset('assets/img/logo-project.png') }}" width="44px" alt="">
         </div>
         <nav class="h-full flex justify-center items-center">
             <ul
-                class="flex flex-col gap-5 text-2xl bg-linear-to-r from-blue-500 to-green-500 bg-clip-text text-transparent text-">
-                <li data-tippy-content="Dashboard" class="hover:bg-indigo-100 hover:text-zinc-400 p-2 rounded-md"><a
+                class="flex flex-col gap-5 text-2xl bg-linear-to-r from-indigo-800 to-indigo-400 bg-clip-text text-transparent">
+                <li data-tippy-content="Dashboard"
+                    class="hover:bg-indigo-300 hover:text-indigo-800  transition-all duration-300   p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-igloo"></i></a></li>
-                <li data-tippy-content="Courses" class="hover:bg-indigo-100 hover:text-zinc-400 p-2 rounded-md"><a
+                <li data-tippy-content="Courses"
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-book-open"></i></a></li>
-                <li data-tippy-content="Leaderboards" class="hover:bg-indigo-100 hover:text-zinc-400 p-2 rounded-md"><a
+                <li data-tippy-content="Leaderboards"
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-trophy"></i></a></li>
-                <li data-tippy-content="Badges" class="hover:bg-indigo-100 hover:text-zinc-400 p-2 rounded-md"><a
+                <li data-tippy-content="Badges"
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-award"></i></a></li>
-                <li data-tippy-content="Settings" class="hover:bg-indigo-100 hover:text-zinc-400 p-2 rounded-md"><a
+                <li data-tippy-content="Settings"
+                    class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300   p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-gears"></i></a></li>
             </ul>
         </nav>
     </aside>
     <main class="flex-1">
-        <header class="h-16 p-4 flex items-center gap-3 text-xl text-zinc-500 justify-end">
-            <button id="theme-toggle" class="text-[12px] hover:bg-indigo-100  px-3 py-2 rounded-xl flex align-center"><i
+        <header class="h-16 p-4 flex items-center gap-3 text-xl text-zinc-600 justify-end dark:text-zinc-100">
+            <button id="theme-toggle"
+                class="text-[12px] transition-all duration-300 hover:bg-zinc-200  dark:hover:bg-[#1e283e]  px-3 py-2 rounded-xl flex align-center"><i
                     class="fa-solid fa-moon text-xl"></i> <span class="mt-px">Swtich Theme</span> </button>
             <button class=" hover:bg-indigo-100  px-3 py-2 rounded-full flex align-center"><i
                     class="fa-solid fa-bell text-xl"></i></button>
         </header>
         @yield('content')
     </main>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const html = document.documentElement;
-            const themeToggle = document.getElementById("theme-toggle");
-            const body = document.body;
-
-            // 🌓 Fungsi untuk menerapkan tema dari localStorage
-            function applyTheme(theme) {
-                if (theme === "dark") {
-                    html.classList.add("dark");
-                } else {
-                    html.classList.remove("dark");
-                }
-            }
-
-            // 🌗 Cek dan terapkan tema awal
-            const savedTheme = localStorage.getItem("theme");
-            if (savedTheme) {
-                applyTheme(savedTheme);
-            } else {
-                // jika belum ada di localStorage, gunakan preferensi sistem
-                const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                applyTheme(prefersDark ? "dark" : "light");
-                localStorage.setItem("theme", prefersDark ? "dark" : "light");
-            }
-
-            // ✨ Event: klik tombol toggle
-            themeToggle.addEventListener("click", () => {
-                const currentTheme = localStorage.getItem("theme");
-
-                let newTheme;
-
-                if (currentTheme === "dark") {
-                    const themeAnimation = document.createElement("div");
-                    themeAnimation.classList.add("theme-animation-light");
-                    body.appendChild(themeAnimation);
-                    newTheme = "light";
-                } else {
-                    const themeAnimation = document.createElement("div");
-                    themeAnimation.classList.add("theme-animation-dark");
-                    body.appendChild(themeAnimation);
-                    newTheme = "dark";
-                }
-
-                setTimeout(() => {
-                        setTimeout(() => {
-                            applyTheme(newTheme);
-                            document.querySelector(".theme-animation-dark")?.remove(), document.querySelector(".theme-animation-light")?.remove();
-                            localStorage.setItem("theme", newTheme);
-                        }, 100)
-                }, 1800);
-            });
-
-            // 🔄 Update otomatis jika localStorage berubah di tab lain
-            window.addEventListener("storage", (e) => {
-                if (e.key === "theme") {
-                    applyTheme(e.newValue);
-                }
-            });
-        });
-    </script>
-
+    <script src="{{ asset('assets/js/theme-animation.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 

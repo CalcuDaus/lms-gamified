@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('user_quiz_attemps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('quiz_id')->constrained('quizzes')->onDelete('cascade');
+            $table->decimal('score', 5, 2)->default(0);
+            $table->boolean('passed')->default(false);
+            $table->integer('xp_earned')->default(0);
             $table->timestamps();
         });
     }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->string('title');
+            $table->text('content')->nullable();
+            $table->string('file')->nullable();
+            $table->integer('xp_reward')->default(0);
             $table->timestamps();
         });
     }

@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('badges', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('icon')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('min_xp')->default(0);
             $table->timestamps();
         });
     }

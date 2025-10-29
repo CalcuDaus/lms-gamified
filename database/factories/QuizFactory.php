@@ -17,7 +17,11 @@ class QuizFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'material_id' => \App\Models\Material::factory(),
+            'title' => fake()->sentence(),
+            'xp_reward' => fake()->numberBetween(50, 200),
+            'time_limit' => fake()->numberBetween(5, 60), // in minutes
+            'passing_score' => fake()->numberBetween(70, 100),
         ];
     }
 }

@@ -17,7 +17,10 @@ class BadgeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->word(),
+            'icon' => fake()->imageUrl(100, 100, 'awards'),
+            'description' => fake()->sentence(),
+            'min_xp' => fake()->numberBetween(100, 1000),
         ];
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('material_id')->constrained('materials')->onDelete('cascade');
             $table->string('title');
             $table->integer('xp_reward')->default(0);
+            $table->integer('time_limit')->default(30); // in minutes
             $table->integer('passing_score')->default(70);
             $table->timestamps();
         });

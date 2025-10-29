@@ -17,7 +17,15 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'quiz_id' => \App\Models\Quiz::factory(),
+            'question_text' => fake()->sentence(),
+            'options' => json_encode([
+                'A' => fake()->word(),
+                'B' => fake()->word(),
+                'C' => fake()->word(),
+                'D' => fake()->word(),
+            ]),
+            'correct_answer' => fake()->randomElement(['A', 'B', 'C', 'D']),
         ];
     }
 }

@@ -9,4 +9,11 @@ class UserQuizAttemps extends Model
 {
     /** @use HasFactory<\Database\Factories\UserQuizAttempsFactory> */
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'quiz_id',
+        'score',
+        'passed',
+        'xp_earned',
+    ];
 }

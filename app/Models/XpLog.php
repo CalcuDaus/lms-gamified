@@ -9,4 +9,9 @@ class XpLog extends Model
 {
     /** @use HasFactory<\Database\Factories\XpLogFactory> */
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'source',
+        'xp_amount',
+    ];
 }

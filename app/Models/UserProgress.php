@@ -9,4 +9,10 @@ class UserProgress extends Model
 {
     /** @use HasFactory<\Database\Factories\UserProgressFactory> */
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'course_id',
+        'status',
+        'xp_earned',
+    ];
 }

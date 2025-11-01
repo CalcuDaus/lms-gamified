@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_progress', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('material_id')->constrained('materials')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->enum('status', ['not_started', 'in_progress', 'completed'])->default('not_started');
             $table->integer('xp_earned')->default(0);
             $table->timestamps();

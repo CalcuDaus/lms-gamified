@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Services\OTPService;
 use App\Events\UserRegistered;
 use App\Repositories\UserRepository;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -14,7 +15,6 @@ class AuthService
      * Create a new class instance.
      */
     protected $userRepository;
-    protected $otpService;
 
     public function __construct(UserRepository $userRepository)
     {
@@ -72,7 +72,7 @@ class AuthService
             return ['error' => 'Terlalu banyak percobaan login. Silakan coba lagi nanti. dalam ' . $seconds . ' detik.'];
         }
 
-        $user = $this->userRepository->findByEmail($credentials['email']);
+        $user = $this->userRepository->getUserByEmail($credentials['email']);
 
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             RateLimiter::hit($throttleKey, 60);

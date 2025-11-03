@@ -34,7 +34,7 @@
                         href=""><i class="fa-solid fa-book-open"></i></a></li>
                 <li data-tippy-content="Leaderboards"
                     class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300 p-2 rounded-md"><a
-                        href=""><i class="fa-solid fa-trophy"></i></a></li> 
+                        href=""><i class="fa-solid fa-trophy"></i></a></li>
                 <li data-tippy-content="Badges"
                     class="hover:bg-indigo-300 hover:text-indigo-800 transition-all duration-300 p-2 rounded-md"><a
                         href=""><i class="fa-solid fa-award"></i></a></li>
@@ -43,7 +43,11 @@
                         href=""><i class="fa-solid fa-gears"></i></a></li>
             </ul>
         </nav>
-    </aside>            
+        <div class="absolute bottom-4 left-4">
+            <a href="{{ route('auth.logout') }}" class="hover:bg-zinc-200 dark:hover:bg-[#192132] d px-3 py-2 rounded-full flex align-center"><i
+                    class="fa-solid fa-right-from-bracket text-xl"></i></a>
+        </div>
+    </aside>
     <main class="flex-1">
         <header class="h-16 p-4 flex items-center gap-3 text-xl text-[#192132] justify-end dark:text-zinc-100">
             <button id="theme-toggle"

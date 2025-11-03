@@ -14,11 +14,9 @@
                 <h1 class="text-3xl font-bold text-gray-900">Create Account</h1>
                 <p class="text-gray-600 mt-2">Sign up to get started</p>
             </div>
-
             <!-- Registration Form -->
             <form method="POST" action="{{ route('auth.register') }}" enctype="multipart/form-data">
                 @csrf
-
                 <!-- Name Field -->
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
@@ -30,7 +28,7 @@
                         name="name" 
                         value="{{ old('name') }}"
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('name') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('name') border-red-500 @enderror"
                         placeholder="Enter your full name"
                     >
                     @error('name')
@@ -49,7 +47,7 @@
                         name="email" 
                         value="{{ old('email') }}"
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('email') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('email') border-red-500 @enderror"
                         placeholder="your.email@example.com"
                     >
                     @error('email')
@@ -67,7 +65,7 @@
                         id="phone" 
                         name="phone" 
                         value="{{ old('phone') }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('phone') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('phone') border-red-500 @enderror"
                         placeholder="+62 123 4567 8900"
                     >
                     @error('phone')
@@ -84,7 +82,7 @@
                         id="role" 
                         name="role" 
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('role') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('role') border-red-500 @enderror"
                     >
                         <option value="">Select your role</option>
                         <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>Student</option>
@@ -106,7 +104,7 @@
                         id="password" 
                         name="password" 
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('password') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('password') border-red-500 @enderror"
                         placeholder="Minimum 8 characters"
                     >
                     @error('password')
@@ -124,7 +122,7 @@
                         id="password_confirmation" 
                         name="password_confirmation" 
                         required
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
                         placeholder="Re-enter your password"
                     >
                 </div>
@@ -139,7 +137,7 @@
                         id="avatar" 
                         name="avatar" 
                         accept="image/*"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('avatar') border-red-500 @enderror"
+                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('avatar') border-red-500 @enderror"
                     >
                     <p class="text-gray-500 text-xs mt-1">Max file size: 4MB</p>
                     @error('avatar')

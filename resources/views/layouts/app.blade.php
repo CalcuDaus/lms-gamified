@@ -7,7 +7,7 @@
     <meta name="description" content="{{ env('APP_DESCRIPTION') }}">
     <meta name="author" content="{{ env('APP_AUTHOR') }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ $title ?? env('APP_NAME') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -15,7 +15,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-
+    @stack('styles')
 </head>
 
 <body class="flex font-['poppins'] box-border bg-[#D9D9D9] dark:bg-[#192132]">
@@ -44,10 +44,10 @@
                         }
                     }
                 </style>
-                <li data-tippy-content="Dashboard" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
-                    style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="#"><i
+                <li data-tippy-content="Dashboard" class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
+                    style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="{{ route('dashboard') }}"><i
                             class="fa-solid fa-igloo"></i></a></li>
-                <li data-tippy-content="Courses" class="nav-item active transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#0074d9; --color-shadow:#005eb0;">
+                <li data-tippy-content="Courses" class="nav-item transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#0074d9; --color-shadow:#005eb0;">
                     <a href=""><i class="fa-solid fa-book-open"></i></a></li>
                 <li data-tippy-content="Leaderboards" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
                     style="--color-main:#ff4136; --color-shadow:#c32d25;"><a href=""><i
@@ -73,7 +73,9 @@
             <button class="text-[12px] cursor-pointer hover:shadow-[0_5px_0_#3f3f3f] dark:hover:shadow-[0_5px_0_#d6d6d6]  active:shadow-none dark:active:shadow-none active:translate-y-0.5 transition-all duration-300 hover:bg-[#848484] hover:text-white  dark:hover:bg-[#ffffff] dark:hover:text-[#192132]  px-3 py-2 rounded-md flex align-center"><i
                     class="fa-solid fa-bell text-xl"></i></button>
         </header>
-        @yield('content')
+        <div class="p-7">
+            @yield('content')
+        </div>
     </main>
     {{-- Custom JS --}}
     <script>

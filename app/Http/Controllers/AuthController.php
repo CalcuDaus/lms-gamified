@@ -26,7 +26,7 @@ class AuthController extends Controller
     public function login(AuthRequest $request)
     {
         $this->authService->login($request->validated());
-        return redirect()->route('home')->with('success', 'Welcome Warriors.');
+        return redirect()->route('dashboard')->with('success', 'Welcome Warriors.');
     }
     public function register(UserRequest $request)
     {
@@ -36,12 +36,10 @@ class AuthController extends Controller
     public function verifyOTP(Request $request)
     {
         $result = $this->authService->verifyOTP($request->input('otp'));
-
         if (isset($result['error'])) {
             return redirect()->back()->with('error', $result['error']);
         }
-
-        return redirect()->route('home')->with('success', 'Your account has been verified.');
+        return redirect()->route('dashboard')->with('success', 'Your account has been verified.');
     }
     public function logout()
     {

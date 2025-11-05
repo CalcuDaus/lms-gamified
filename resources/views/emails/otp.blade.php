@@ -1,12 +1,11 @@
 <x-mail::message>
-# Introduction
+# Welcome to {{ config('app.name') }}
 
-Hi ini adakah kode OTP kamu untuk melakukan verifikasi pendaftaran.
+Here is your OTP code for verification.
 
 <x-mail::button :url="''">
-    Button Text : {{ $otp }}
+    {{ $otp }}
 </x-mail::button>
 
-Terimakasih,<br>
-{{ config('app.name') }}
+Thank you,<br>
 </x-mail::message>

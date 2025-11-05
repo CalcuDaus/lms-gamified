@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Verify Otp Code</title>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-gray-800 text-gray-700 w-dvw h-dvh font-[poppins] flex justify-center items-center p-5">
@@ -26,7 +26,7 @@
                     class="w-[300px] mb-5 block lg:hidden"> --}}
                 <h2><span class="text-[#01ff70]">Ver</span><span class="text-[#0074d9]">ify</span>, <span
                         class="text-[#ff7921]">OTP</span><span class="text-[#ff4136]"> - Code</span></h2>
-                <form action="{{ route('auth.login') }}" class="flex flex-col gap-4 w-full" method="POST">
+                <form action="{{ route('auth.verify-otp.post') }}" class="flex flex-col gap-4 w-full" method="POST">
                     @csrf
                     <div class="flex flex-col">
                         <label for="otp" class="text-gray-700">OTP</label>
@@ -42,6 +42,29 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    theme: 'auto',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: false,
+                });
+            @elseif (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    theme: 'auto',
+                    text: '{{ session('error') }}',
+                    timer: 3000,
+                    showConfirmButton: false,
+                });
+            @endif
+        });
+    </script>
 </body>
 
 </html>

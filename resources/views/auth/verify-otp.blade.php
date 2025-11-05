@@ -36,8 +36,8 @@
                     </div>
                     <button type="submit"
                         class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">Kirim</button>
-                    <p class="text-gray-500 text-sm">Belum menerima OTP? <a href="{{ route('auth.verify-otp.post') }}"
-                            class="text-blue-500">Kirim Ulang</a></p>
+                    <p class="text-gray-500 text-sm">Don't receive OTP code? <a href="{{ route('auth.verify-otp.post') }}"
+                            class="text-blue-500">Resend</a></p>
                 </form>
             </div>
         </div>

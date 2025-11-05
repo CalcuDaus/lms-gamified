@@ -9,7 +9,7 @@ use App\Notifications\SendOTPNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Notification;
 
-class SendOTPEmail 
+class SendOTPEmail implements ShouldQueue
 {
     /**
      * Create the event listener.

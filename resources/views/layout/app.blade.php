@@ -31,14 +31,12 @@
                         .nav-item {
                             color: var(--color-main);
                         }
-
                         .nav-item:hover {
                             background-color: var(--color-main);
                             color: white;
                             box-shadow: 0 5px 0 var(--color-shadow);
                             transform: translateY(-2px);
                         }
-
                         .nav-item.active {
                             background-color: var(--color-main);
                             color: white;
@@ -46,17 +44,17 @@
                         }
                     }
                 </style>
-                <li data-tippy-content="Dashboard" class="nav-item  transition-all duration-300 p-2 rounded-md active:shadow-none active:translate-y-0.5  "
+                <li data-tippy-content="Dashboard" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
                     style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="#"><i
                             class="fa-solid fa-igloo"></i></a></li>
-                <li data-tippy-content="Courses" class="nav-item active transition-all duration-300 p-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#0074d9; --color-shadow:#005eb0;">
+                <li data-tippy-content="Courses" class="nav-item active transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#0074d9; --color-shadow:#005eb0;">
                     <a href=""><i class="fa-solid fa-book-open"></i></a></li>
-                <li data-tippy-content="Leaderboards" class="nav-item  transition-all duration-300 p-2 rounded-md active:shadow-none active:translate-y-0.5"
+                <li data-tippy-content="Leaderboards" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
                     style="--color-main:#ff4136; --color-shadow:#c32d25;"><a href=""><i
                             class="fa-solid fa-trophy"></i></a></li>
-                <li data-tippy-content="Badges" class="nav-item  transition-all duration-300 p-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#ff7921; --color-shadow:#b85818;">
+                <li data-tippy-content="Badges" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#ff7921; --color-shadow:#b85818;">
                     <a href=""><i class="fa-solid fa-award"></i></a></li>
-                <li data-tippy-content="Settings" class="nav-item  transition-all duration-300 p-2 rounded-md active:shadow-none active:translate-y-0.5"
+                <li data-tippy-content="Settings" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
                     style="--color-main:#848484; --color-shadow:#3f3f3f;"><a href=""><i
                             class="fa-solid fa-gears"></i></a></li>
             </ul>
@@ -80,11 +78,12 @@
     {{-- Custom JS --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let theme = localStorage.getItem('theme');
             @if (session('success'))
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
-                    theme: 'auto',
+                    theme: theme,
                     text: '{{ session('success') }}',
                     timer: 3000,
                     showConfirmButton: false,
@@ -93,7 +92,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    theme: 'auto',
+                    theme: theme,
                     text: '{{ session('error') }}',
                     timer: 3000,
                     showConfirmButton: false,

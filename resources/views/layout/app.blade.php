@@ -44,7 +44,8 @@
             </ul>
         </nav>
         <div class="absolute bottom-4 left-4">
-            <a href="{{ route('auth.logout') }}" class="hover:bg-zinc-200 dark:hover:bg-[#192132] d px-3 py-2 rounded-full flex align-center"><i
+            <a href="{{ route('auth.logout') }}"
+                class="hover:bg-zinc-200 dark:hover:bg-[#192132] d px-3 py-2 rounded-full flex align-center"><i
                     class="fa-solid fa-right-from-bracket text-xl"></i></a>
         </div>
     </aside>
@@ -58,6 +59,21 @@
         </header>
         @yield('content')
     </main>
+    {{-- Custom JS --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    theme: 'auto',
+                    text: '{{ session('success') }}',
+                    timer: 3000,
+                    showConfirmButton: false,
+                });
+            @endif
+        });
+    </script>
     <script src="{{ asset('assets/js/theme-animation.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>

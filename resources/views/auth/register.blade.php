@@ -1,166 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register Page</title>
+    @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
-    <div class="w-full max-w-md">
-        <div class="bg-white rounded-lg shadow-md p-8">
-            <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">Create Account</h1>
-                <p class="text-gray-600 mt-2">Sign up to get started</p>
+
+<body
+    class="bg-gray-800 text-gray-700 w-full h-auto lg:w-dvw lg:h-dvh font-[poppins] flex justify-center items-center lg:p-5 p-2">
+    {{-- Main Container --}}
+    <div
+        class="flex bg-[#EEEEEE] w-full h-full justify-center items-center rounded-lg px-2 py-5 shadow-lg overflow-y-auto">
+        {{-- REgister Form --}}
+        <form action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data"
+            class="lg:w-[1000px] text-sm lg:h-[650px] h-auto  w-full flex lg:flex-row flex-col justify-center items-center border-2 border-gray-300 shadow-[0_5px_0_var(--color-gray-300)] rounded-2xl">
+            {{-- Left Side --}}
+            @csrf
+            <div
+                class="lg:w-1/2 w-full h-full flex lg:border-r-2 border-b-2 border-gray-300 flex-col lg:px-10 px-5 py-8 justify-center items-center">
+                <div class="flex flex-col gap-4 w-full">
+                    <div class="flex flex-col">
+                        <label for="name" class="text-gray-700 w-full">Name <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" id="name" name="name" autocomplete="off"
+                            class="p-2 border-2 focus:outline-none w-full shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
+                            required>
+                        @error('name')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="email" class="text-gray-700">Email <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" name="email" autocomplete="off"
+                            class="p-2 border-2 focus:outline-none shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
+                            required>
+                        @error('email')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="flex gap-1 items-center">
+                        <div class="w-1/2">
+                            <label for="password" class="text-gray-700 w-full">Password <span
+                                    class="text-red-500">*</span></label>
+                            <input type="password" id="password" name="password" autocomplete="off"
+                                class="p-2 border-2 focus:outline-none w-full shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
+                                required>
+                            @error('password')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="w-1/2">
+                            <label for="password_confirmation" class="text-gray-700 w-full">Konfirmasi Password <span
+                                    class="text-red-500">*</span></label>
+                            <input type="password" id="password_confirmation" name="password_confirmation"
+                                autocomplete="off"
+                                class="p-2 border-2 focus:outline-none w-full shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
+                                required>
+                            @error('password_confirmation')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="role">Select Role <span class="text-red-500">*</span></label>
+                        <select name="role" id="role"
+                            class="p-2 border-2 focus:outline-none shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
+                            required>
+                            <option value="" disabled selected>-- Select Role --</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="student">Student</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-            <!-- Registration Form -->
-            <form method="POST" action="{{ route('auth.register') }}" enctype="multipart/form-data">
-                @csrf
-                <!-- Name Field -->
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                        Name <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        value="{{ old('name') }}"
-                        required
-                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('name') border-red-500 @enderror"
-                        placeholder="Enter your full name"
-                    >
-                    @error('name')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Email Field -->
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                        Email <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        value="{{ old('email') }}"
-                        required
-                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('email') border-red-500 @enderror"
-                        placeholder="your.email@example.com"
-                    >
-                    @error('email')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Phone Field -->
-                <div class="mb-4">
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number
-                    </label>
-                    <input 
-                        type="tel" 
-                        id="phone" 
-                        name="phone" 
-                        value="{{ old('phone') }}"
-                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('phone') border-red-500 @enderror"
-                        placeholder="+62 123 4567 8900"
-                    >
-                    @error('phone')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Role Field -->
-                <div class="mb-4">
-                    <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
-                        Role <span class="text-red-500">*</span>
-                    </label>
-                    <select 
-                        id="role" 
-                        name="role" 
-                        required
-                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('role') border-red-500 @enderror"
-                    >
-                        <option value="">Select your role</option>
-                        <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>Student</option>
-                        <option value="teacher" {{ old('role') == 'teacher' ? 'selected' : '' }}>Teacher</option>
-                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                    </select>
-                    @error('role')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Password Field -->
-                <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                        Password <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        required
-                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('password') border-red-500 @enderror"
-                        placeholder="Minimum 8 characters"
-                    >
-                    @error('password')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Password Confirmation Field -->
-                <div class="mb-4">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
-                        Confirm Password <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="password" 
-                        id="password_confirmation" 
-                        name="password_confirmation" 
-                        required
-                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-                        placeholder="Re-enter your password"
-                    >
-                </div>
-
-                <!-- Avatar Upload Field -->
-                <div class="mb-6">
-                    <label for="avatar" class="block text-sm font-medium text-gray-700 mb-2">
-                        Profile Picture
-                    </label>
-                    <input 
-                        type="file" 
-                        id="avatar" 
-                        name="avatar" 
-                        accept="image/*"
-                        class="w-full px-4 py-2 border  rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition @error('avatar') border-red-500 @enderror"
-                    >
-                    <p class="text-gray-500 text-xs mt-1">Max file size: 4MB</p>
-                    @error('avatar')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Submit Button -->
-                <button 
-                    type="submit" 
-                    class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition duration-200 focus:ring-4 focus:ring-blue-300"
-                >
-                    Register
-                </button>
-
-                <!-- Login Link -->
-                <div class="text-center mt-6">#}}" class="text-blue-600 hover:text-blue-700 font-medium">
-                            Login here
-                        </a>
+            {{-- Right Side --}}
+            <div class="lg:w-1/2 w-full h-full flex flex-col lg:px-10 px-5 py-5 justify-center items-center">
+                <div class="flex flex-col gap-4 w-full">
+                    <div class="flex flex-col">
+                        <label for="foto_profil" class="text-gray-700">Foto Profil <span
+                                class="text-red-500">*</span></label>
+                        <div class="flex items-center justify-center w-full h-36">
+                            <label for="dropzone-file"
+                                class="flex flex-col items-center justify-center w-full h-36 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50  dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div id="preview" class="flex w-full h-full flex-col items-center justify-center ">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                            class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX.
+                                        800x400px)</p>
+                                </div>
+                                <input id="dropzone-file" name="avatar" type="file" class="hidden" />
+                            </label>
+                            @error('avatar')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="phone" class="text-gray-700">Nomor HP<span class="text-red-500">*</span></label>
+                        <input type="text" id="phone" name="phone"
+                            class="p-2 border-2 focus:outline-none shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
+                            required>
+                        @error('phone')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit"
+                        class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">Daftar</button>
+                    <p class="text-gray-500 text-sm">Sudah punya akun? <a href="{{ route('auth.login.form') }}"
+                            class="text-blue-500">Masuk</a>
                     </p>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+    <script>
+        const dropzone = document.getElementById('dropzone-file');
+        const preview = document.getElementById('preview');
+        const reader = new FileReader();
+        dropzone.addEventListener('change', function() {
+            preview.innerHTML = '';
+            reader.readAsDataURL(this.files[0]);
+            reader.onload = function() {
+                const img = document.createElement('img');
+                img.src = reader.result;
+                img.classList.add('w-full', 'h-full', 'object-cover', 'rounded-lg');
+                preview.appendChild(img);
+            };
+        });
+    </script>
 </body>
+
 </html>

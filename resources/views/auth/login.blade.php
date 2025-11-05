@@ -42,7 +42,7 @@
                     </div>
                     <button type="submit"
                         class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">Masuk</button>
-                    <p class="text-gray-500 text-sm">Belum punya akun? <a href="{{ route('auth.register') }}"
+                    <p class="text-gray-500 text-sm">Belum punya akun? <a href="{{ route('auth.register.form') }}"
                             class="text-blue-500">Daftar</a></p>
                 </form>
             </div>

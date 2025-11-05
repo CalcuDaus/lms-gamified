@@ -41,7 +41,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', $result['error']);
         }
 
-        return redirect()->route('home')->with('success', 'Akun berhasil diverifikasi.');
+        return redirect()->route('home')->with('success', 'Your account has been verified.');
     }
     public function logout()
     {

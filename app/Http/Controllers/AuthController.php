@@ -23,6 +23,11 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
+    public function showVerifyOTPForm()
+    {
+        return view('auth.verify-otp');
+    }
+
     public function login(AuthRequest $request)
     {
         $this->authService->login($request->validated());
@@ -31,7 +36,7 @@ class AuthController extends Controller
     public function register(UserRequest $request)
     {
         $this->authService->register($request->validated());
-        return redirect()->route('auth.verify-otp')->with('success', 'Registration successful. Please check your email for the OTP code.');
+        return redirect()->route('auth.verify-otp.form')->with('success', 'Registration successful. Please check your email for the OTP code.');
     }
     public function verifyOTP(Request $request)
     {

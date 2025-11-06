@@ -19,6 +19,44 @@
 </head>
 
 <body class="flex font-['poppins'] box-border bg-[#D9D9D9] dark:bg-[#192132]">
+    {{-- Loader --}}
+    <!-- Loader -->
+    <div id="page-loader" class="fixed inset-0 z-50 flex items-center justify-center bg-[#D9D9D9] dark:bg-[#192132]">
+        <div class="relative w-32 h-32 text-[#002D5A]" aria-label="Loading" role="status">
+            <div
+                class="absolute inset-0 rounded-full blur-md opacity-20 bg-linear-to-tr from-[#002D5A] via-[#0892A5] to-[#C9910D]">
+            </div>
+
+            <svg viewBox="0 0 120 120" class="relative w-full h-full">
+                <g class="origin-center animate-[spin_8s_linear_infinite]">
+                    <circle cx="60" cy="60" r="54" class="fill-none" stroke="currentColor"
+                        stroke-width="3" opacity="0.25"></circle>
+                    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6">
+                        <g class="origin-center">
+                            <line x1="60" y1="6" x2="60" y2="12"></line>
+                            <line x1="60" y1="108" x2="60" y2="114"></line>
+                            <line x1="6" y1="60" x2="12" y2="60"></line>
+                            <line x1="108" y1="60" x2="114" y2="60"></line>
+                        </g>
+                    </g>
+                </g>
+
+                <g class="origin-center animate-[spin_5s_linear_infinite_reverse]">
+                    <polygon points="60,22 66,60 60,98 54,60" fill="#C9910D" opacity="0.95"></polygon>
+                    <polygon points="22,60 60,66 98,60 60,54" fill="#0892A5" opacity="0.9"></polygon>
+                    <circle cx="60" cy="60" r="6" fill="white" stroke="currentColor" stroke-width="2">
+                    </circle>
+                </g>
+
+                <g class="origin-center animate-[bounce_1.5s_ease-in-out_infinite]">
+                    <line x1="60" y1="60" x2="60" y2="18" stroke="#C9910D" stroke-width="3"
+                        stroke-linecap="round"></line>
+                    <circle cx="60" cy="18" r="4" fill="#C9910D"></circle>
+                </g>
+            </svg>
+        </div>
+    </div>
+
     <aside class="flex flex-col w-20 h-dvh ">
         <div class="absolute top-4 left-4">
             <img src="{{ asset('assets/img/logo-project.png') }}" width="44px" alt="">
@@ -31,12 +69,14 @@
                         .nav-item {
                             color: var(--color-main);
                         }
+
                         .nav-item:hover {
                             background-color: var(--color-main);
                             color: white;
                             box-shadow: 0 5px 0 var(--color-shadow);
                             transform: translateY(-2px);
                         }
+
                         .nav-item.active {
                             background-color: var(--color-main);
                             color: white;
@@ -44,17 +84,26 @@
                         }
                     }
                 </style>
-                <li data-tippy-content="Dashboard" class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
+                <li data-tippy-content="Dashboard"
+                    class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
                     style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="{{ route('dashboard') }}"><i
                             class="fa-solid fa-igloo"></i></a></li>
-                <li data-tippy-content="Courses" class="nav-item transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#0074d9; --color-shadow:#005eb0;">
-                    <a href=""><i class="fa-solid fa-book-open"></i></a></li>
-                <li data-tippy-content="Leaderboards" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                <li data-tippy-content="Courses"
+                    class="nav-item {{ request()->is('courses') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                    style="--color-main:#0074d9; --color-shadow:#005eb0;">
+                    <a href="{{ route('courses.index') }}"><i class="fa-solid fa-book-open"></i></a>
+                </li>
+                <li data-tippy-content="Leaderboards"
+                    class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
                     style="--color-main:#ff4136; --color-shadow:#c32d25;"><a href=""><i
                             class="fa-solid fa-trophy"></i></a></li>
-                <li data-tippy-content="Badges" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5" style="--color-main:#ff7921; --color-shadow:#b85818;">
-                    <a href=""><i class="fa-solid fa-award"></i></a></li>
-                <li data-tippy-content="Settings" class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                <li data-tippy-content="Badges"
+                    class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                    style="--color-main:#ff7921; --color-shadow:#b85818;">
+                    <a href=""><i class="fa-solid fa-award"></i></a>
+                </li>
+                <li data-tippy-content="Settings"
+                    class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
                     style="--color-main:#848484; --color-shadow:#3f3f3f;"><a href=""><i
                             class="fa-solid fa-gears"></i></a></li>
             </ul>
@@ -70,7 +119,8 @@
             <button id="theme-toggle"
                 class="text-[12px] cursor-pointer hover:shadow-[0_5px_0_#3f3f3f] dark:hover:shadow-[0_5px_0_#d6d6d6]  active:shadow-none dark:active:shadow-none active:translate-y-0.5 transition-all duration-300 hover:bg-[#848484] hover:text-white  dark:hover:bg-[#ffffff] dark:hover:text-[#192132]  px-3 py-2 rounded-md flex align-center"><i
                     class="fa-solid fa-moon text-xl"></i> <span class="mt-px">Swtich Theme</span> </button>
-            <button class="text-[12px] cursor-pointer hover:shadow-[0_5px_0_#3f3f3f] dark:hover:shadow-[0_5px_0_#d6d6d6]  active:shadow-none dark:active:shadow-none active:translate-y-0.5 transition-all duration-300 hover:bg-[#848484] hover:text-white  dark:hover:bg-[#ffffff] dark:hover:text-[#192132]  px-3 py-2 rounded-md flex align-center"><i
+            <button
+                class="text-[12px] cursor-pointer hover:shadow-[0_5px_0_#3f3f3f] dark:hover:shadow-[0_5px_0_#d6d6d6]  active:shadow-none dark:active:shadow-none active:translate-y-0.5 transition-all duration-300 hover:bg-[#848484] hover:text-white  dark:hover:bg-[#ffffff] dark:hover:text-[#192132]  px-3 py-2 rounded-md flex align-center"><i
                     class="fa-solid fa-bell text-xl"></i></button>
         </header>
         <div class="p-7">
@@ -100,6 +150,11 @@
                     showConfirmButton: false,
                 });
             @endif
+            window.addEventListener("load", () => {
+                const loader = document.getElementById("page-loader");
+                loader.classList.add("opacity-0", "transition-opacity", "duration-800");
+                setTimeout(() => (loader.style.display = "none"), 800);
+            });
         });
     </script>
     <script src="{{ asset('assets/js/theme-animation.js') }}"></script>

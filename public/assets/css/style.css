@@ -1,4 +1,4 @@
-html{
+html {
     transition: all 0.5s ease;
 }
 
@@ -42,5 +42,4 @@ html{
     z-index: -1;
     pointer-events: none;
 }
-
 

@@ -54,10 +54,11 @@
                     <circle cx="60" cy="18" r="4" fill="#C9910D"></circle>
                 </g>
             </svg>
+            <p class="text-center mt-3 text-2xl font-black font-balo text-gray-600 dark:text-[#d6d6d6]">Loading...</p>
         </div>
     </div>
 
-    <aside class="flex flex-col w-20 h-dvh ">
+    <aside class="flex fixed top-0 flex-col w-20 h-dvh ">
         <div class="absolute top-4 left-4">
             <img src="{{ asset('assets/img/logo-project.png') }}" width="44px" alt="">
         </div>
@@ -109,7 +110,7 @@
             </ul>
         </nav>
         <div class="absolute bottom-4 left-4">
-            <a href="{{ route('auth.logout') }}"
+            <a href="{{ route('logout') }}"
                 class="dark:text-[#d6d6d6] cursor-pointer hover:shadow-[0_5px_0_#3f3f3f] dark:hover:shadow-[0_5px_0_#d6d6d6]  active:shadow-none dark:active:shadow-none active:translate-y-0.5 transition-all duration-300 hover:bg-[#848484] hover:text-white  dark:hover:bg-[#ffffff] dark:hover:text-[#192132]  px-3 py-2 rounded-md flex align-center"><i
                     class="fa-solid fa-right-from-bracket text-xl"></i></a>
         </div>
@@ -123,7 +124,7 @@
                 class="text-[12px] cursor-pointer hover:shadow-[0_5px_0_#3f3f3f] dark:hover:shadow-[0_5px_0_#d6d6d6]  active:shadow-none dark:active:shadow-none active:translate-y-0.5 transition-all duration-300 hover:bg-[#848484] hover:text-white  dark:hover:bg-[#ffffff] dark:hover:text-[#192132]  px-3 py-2 rounded-md flex align-center"><i
                     class="fa-solid fa-bell text-xl"></i></button>
         </header>
-        <div class="p-7">
+        <div class="p-7 ms-20">
             @yield('content')
         </div>
     </main>

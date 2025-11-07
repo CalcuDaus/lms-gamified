@@ -15,7 +15,7 @@
     <div
         class="flex bg-[#EEEEEE] w-full h-full justify-center items-center rounded-lg px-2 py-5 shadow-lg overflow-y-auto">
         {{-- REgister Form --}}
-        <form action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data"
             class="lg:w-[1000px] text-sm lg:h-[650px] h-auto  w-full flex lg:flex-row flex-col justify-center items-center border-2 border-gray-300 shadow-[0_5px_0_var(--color-gray-300)] rounded-2xl">
             {{-- Left Side --}}
             @csrf
@@ -115,7 +115,7 @@
                     </div>
                     <button type="submit"
                         class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">Daftar</button>
-                    <p class="text-gray-500 text-sm">Sudah punya akun? <a href="{{ route('auth.login.form') }}"
+                    <p class="text-gray-500 text-sm">Sudah punya akun? <a href="{{ route('login.form') }}"
                             class="text-blue-500">Masuk</a>
                     </p>
                 </div>

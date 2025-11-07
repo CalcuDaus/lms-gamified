@@ -26,7 +26,7 @@
                     class="w-[300px] mb-5 block lg:hidden"> --}}
                 <h2><span class="text-[#01ff70]">Wel</span><span class="text-[#0074d9]">come</span>, <span
                         class="text-[#ff7921]">Wari</span><span class="text-[#ff4136]">orrs</span></h2>
-                <form action="{{ route('auth.login') }}" class="flex flex-col gap-4 w-full" method="POST">
+                <form action="{{ route('login.post') }}" class="flex flex-col gap-4 w-full" method="POST">
                     @csrf
                     <div class="flex flex-col">
                         <label for="email" class="text-gray-700">Email</label>
@@ -42,7 +42,7 @@
                     </div>
                     <button type="submit"
                         class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">Masuk</button>
-                    <p class="text-gray-500 text-sm">Belum punya akun? <a href="{{ route('auth.register.form') }}"
+                    <p class="text-gray-500 text-sm">Belum punya akun? <a href="{{ route('register.form') }}"
                             class="text-blue-500">Daftar</a></p>
                 </form>
             </div>

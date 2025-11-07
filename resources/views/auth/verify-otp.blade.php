@@ -26,7 +26,7 @@
                     class="w-[300px] mb-5 block lg:hidden"> --}}
                 <h2><span class="text-[#01ff70]">Ver</span><span class="text-[#0074d9]">ify</span>, <span
                         class="text-[#ff7921]">OTP</span><span class="text-[#ff4136]"> - Code</span></h2>
-                <form action="{{ route('auth.verify-otp.post') }}" class="flex flex-col gap-4 w-full" method="POST">
+                <form action="{{ route('verify-otp.post') }}" class="flex flex-col gap-4 w-full" method="POST">
                     @csrf
                     <div class="flex flex-col">
                         <label for="otp" class="text-gray-700">OTP</label>
@@ -36,7 +36,7 @@
                     </div>
                     <button type="submit"
                         class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">Kirim</button>
-                    <p class="text-gray-500 text-sm">Don't receive OTP code? <a href="{{ route('auth.verify-otp.post') }}"
+                    <p class="text-gray-500 text-sm">Don't receive OTP code? <a href="{{ route('verify-otp.post') }}"
                             class="text-blue-500">Resend</a></p>
                 </form>
             </div>

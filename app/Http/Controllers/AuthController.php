@@ -36,7 +36,7 @@ class AuthController extends Controller
     public function register(UserRequest $request)
     {
         $this->authService->register($request->validated());
-        return redirect()->route('auth.verify-otp.form')->with('success', 'Registration successful. Please check your email for the OTP code.');
+        return redirect()->route('verify-otp.form')->with('success', 'Registration successful. Please check your email for the OTP code.');
     }
     public function verifyOTP(Request $request)
     {
@@ -49,6 +49,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('auth.login.form')->with('success', 'You have been logged out.');
+        return redirect()->route('login')->with('success', 'You have been logged out.');
     }
 }

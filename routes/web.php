@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -26,7 +27,15 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::middleware('auth')->group(function () {
+    // Admin Routes
+    Route::middleware('ensureIsAdmin')->group(function () {
+        Route::prefix('/admin')->group(function () {
+            Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+            Route::resource('users', UserController::class);
+            Route::resource('courses', CourseController::class);
+        });
+    });
+
+    // Student Routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('courses', CourseController::class);
-    Route::resource('users', UserController::class);
 });

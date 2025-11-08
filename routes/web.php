@@ -6,7 +6,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Requests\AuthRequest;
 
 // Redirect root ke halaman login
 Route::redirect('/', '/login');
@@ -15,8 +17,8 @@ Route::redirect('/', '/login');
 Route::controller(AuthController::class)->group(function () {
     // Form routes
     Route::get('/login', 'showLoginForm')->name('login');
-    Route::get('/register-form', 'showRegisterForm')->name('register.form');
-    Route::get('/verify-otp-form', 'showVerifyOTPForm')->name('verify-otp.form');
+    Route::get('/register-form', 'showRegisterForm')->name('register');
+    Route::get('/verify-otp-form', 'showVerifyOTPForm')->name('verify-otp');
 
     // Action routes
     Route::post('/login', 'login')->name('login.post');
@@ -37,5 +39,6 @@ Route::middleware('auth')->group(function () {
     });
 
     // Student Routes
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+    Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard'])->name('teacher.dashboard');
 });

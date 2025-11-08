@@ -30,13 +30,16 @@ class AuthController extends Controller
 
     public function login(AuthRequest $request)
     {
-        $this->authService->login($request->validated());
-        return redirect()->route('dashboard')->with('success', 'Welcome Warriors.');
+        $result = $this->authService->login($request->validated());
+        if (isset($result['error'])) {
+            return redirect()->back()->with('error', $result['error']);
+        }
+        return redirect()->route($result['role'] . '.dashboard')->with('success', 'Login successful.');
     }
     public function register(UserRequest $request)
     {
         $this->authService->register($request->validated());
-        return redirect()->route('verify-otp.form')->with('success', 'Registration successful. Please check your email for the OTP code.');
+        return redirect()->route('verify-otp')->with('success', 'Registration successful. Please check your email for the OTP code.');
     }
     public function verifyOTP(Request $request)
     {
@@ -44,7 +47,7 @@ class AuthController extends Controller
         if (isset($result['error'])) {
             return redirect()->back()->with('error', $result['error']);
         }
-        return redirect()->route('dashboard')->with('success', 'Your account has been verified.');
+        return redirect()->route('student.dashboard')->with('success', 'Your account has been verified.');
     }
     public function logout()
     {

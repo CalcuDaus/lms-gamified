@@ -39,7 +39,10 @@
                     style="--color-shadow:#9b9b9b;">
                     <h3 class="font-black text-2xl ">Progress & XP</h3>
                     <div class="w-full h-3 bg-gray-400 rounded-full mt-2 overflow-hidden">
-                        <div class="h-3 from-[#094b00] animate-pulse to-[#00d45c] bg-linear-to-r rounded-full w-3/4"></div>
+                        <div class="h-3 from-[#094b00] animate-pulse to-[#00d45c] bg-linear-to-r rounded-full w-3/4">
+                            <div class="h-0.5  bg-[#00d45c] rounded-full w-3/4">
+                            </div>
+                        </div>
                     </div>
                     <p class="text-end text-sm text-gray-500">350/500 XP</p>
                     <h3 class="font-bold">Level Junior</h3>

@@ -5,8 +5,7 @@
         </div>
         <nav class="h-full flex justify-center items-center">
             <ul class="flex flex-col gap-5 text-2xl ">
-                @role('student')
-                    <style>
+                <style>
                         @layer components {
                             .nav-item {
                                 color: var(--color-main);
@@ -26,6 +25,7 @@
                             }
                         }
                     </style>
+                    @role('student')
                     <li data-tippy-content="Dashboard"
                         class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
                         style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="{{ route('student.dashboard') }}"><i
@@ -50,9 +50,13 @@
                                 class="fa-solid fa-gears"></i></a></li>
                     @elserole('admin')
                     <li data-tippy-content="Admin Dashboard"
-                        class="nav-item {{ request()->is('admin-dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
+                        class="nav-item {{ request()->is('admin/dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
                         style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="{{ route('admin.dashboard') }}"><i
                                 class="fa-solid fa-line-chart"></i></a></li>
+                    <li data-tippy-content="Users"
+                        class="nav-item {{ request()->is('admin/users') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
+                        style="--color-main:#0074d9; --color-shadow:#005eb0;"><a href="{{ route('users.index') }}"><i
+                                class="fa-solid fa-users"></i></a></li>
                 @endrole
             </ul>
         </nav>

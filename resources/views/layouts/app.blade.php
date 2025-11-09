@@ -45,8 +45,7 @@
                     title: 'Success',
                     theme: theme,
                     text: '{{ session('success') }}',
-                    timer: 3000,
-                    showConfirmButton: false,
+                    timer: 2000,
                 });
             @elseif (session('error'))
                 Swal.fire({
@@ -54,8 +53,7 @@
                     title: 'Error',
                     theme: theme,
                     text: '{{ session('error') }}',
-                    timer: 3000,
-                    showConfirmButton: false,
+                    timer: 2000,
                 });
             @endif
             window.addEventListener("load", () => {
@@ -65,6 +63,7 @@
             });
         });
     </script>
+    @stack('scripts')
     <script src="{{ asset('assets/js/theme-animation.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>

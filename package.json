@@ -15,6 +15,7 @@
         "vite": "^7.0.7"
     },
     "dependencies": {
+        "datatables.net-dt": "^2.3.4",
         "sweetalert2": "^11.26.3",
         "tippy.js": "^6.3.7"
     }

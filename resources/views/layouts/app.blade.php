@@ -15,6 +15,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- Custom CSS --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    {{-- Data Tables --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css">
     @stack('styles')
 </head>
 

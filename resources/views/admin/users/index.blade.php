@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@push('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css">
-@endpush
 @section('content')
     <div class="flex justify-center items-center font-balo max-w-[1000px] dark:text-[#d6d6d6] flex-col mx-auto">
         <div class="mt-5">

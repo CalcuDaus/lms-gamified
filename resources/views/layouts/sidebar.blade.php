@@ -61,6 +61,11 @@
                     style="--color-main:#ff4136; --color-shadow:#c32d25;">
                     <a href="{{ route('courses.index') }}"><i class="fa-solid fa-book-open"></i></a>
                 </li>
+                <li data-tippy-content="Badges"
+                    class="nav-item  {{ request()->is('admin/badges') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                    style="--color-main:#ff7921; --color-shadow:#b85818;">
+                    <a href="{{ route('badges.index') }}"><i class="fa-solid fa-award"></i></a>
+                </li>
             @endrole
         </ul>
     </nav>

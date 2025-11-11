@@ -3,9 +3,9 @@
 @section('content')
     <div class="flex justify-center items-center font-balo max-w-[1000px] dark:text-[#d6d6d6] flex-col mx-auto">
         <div class="mt-5 w-full flex justify-end">
-            <a href="{{ route('courses.create') }}"
+            <a href="{{ route('badges.create') }}"
                 class="px-4 py-2 bg-[#192132] text-white rounded-md hover:bg-[#848484] text-[12px]">
-                + Create Course
+                + Create Badge
             </a>
         </div>
 
@@ -13,45 +13,35 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    {{-- <th>Thumbnail</th> --}}
-                    <th>Title</th>
+                    <th>Icon</th>
+                    <th>Name</th>
                     <th>Description</th>
-                    <th>Created By</th>
-                    <th>Created At</th>
+                    <th>Min XP</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($courses as $course)
+                @foreach ($badges as $badge)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-
-                        {{-- Thumbnail --}}
-                        {{-- <td>
-                            @if ($course->thumbnail)
-                                <img src="{{ asset('storage/' . $course->thumbnail) }}" alt="Thumbnail"
-                                    class="w-12 h-12 object-cover rounded-md">
+                        <td>
+                            @if ($badge->icon)
+                                <img src="{{ asset('storage/' . $badge->icon) }}" alt="{{ $badge->name }}"
+                                    class="w-10 h-10 object-cover rounded-md">
                             @else
-                                <span class="text-gray-400 text-sm italic">No image</span>
+                                <span class="text-gray-400 text-sm italic">No icon</span>
                             @endif
-                        </td> --}}
-
-                        <td>{{ $course->title }}</td>
-
-                        {{-- Shortened description --}}
-                        <td>{{ Str::limit($course->description, 60) }}</td>
-
-                        <td>{{ $course->creator->name ?? 'Unknown' }}</td>
-                        <td>{{ $course->created_at->format('d M Y') }}</td>
-
-                        {{-- Actions --}}
+                        </td>
+                        <td>{{ $badge->name }}</td>
+                        <td>{{ Str::limit($badge->description, 60) }}</td>
+                        <td>{{ $badge->min_xp }}</td>
                         <td>
                             <div class="flex gap-2">
-                                <a href="{{ route('courses.edit', $course->id) }}" class="text-blue-400">
+                                <a href="{{ route('badges.edit', $badge->id) }}" class="text-blue-400">
                                     <i class="fa-solid fa-pen cursor-pointer"></i>
                                 </a>
-                                <form action="{{ route('courses.destroy', $course->id) }}" method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete this course?')">
+                                <form action="{{ route('badges.destroy', $badge->id) }}" method="POST"
+                                    onsubmit="return confirm('Are you sure you want to delete this badge?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">
@@ -72,9 +62,7 @@
                 new DataTable('#example', {
                     layout: {
                         bottomEnd: {
-                            paging: {
-                                firstLast: false
-                            }
+                            paging: { firstLast: false }
                         }
                     }
                 });

@@ -1,14 +1,17 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BadgeController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Requests\AuthRequest;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\DashboardController;
 
 // Redirect root ke halaman login
 Route::redirect('/', '/login');
@@ -35,6 +38,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
             Route::resource('users', UserController::class);
             Route::resource('courses', CourseController::class);
+            Route::resource('badges', BadgeController::class);
+            Route::resource('materials', MaterialController::class);
+            Route::resource('quizzes', QuizController::class);
         });
     });
 

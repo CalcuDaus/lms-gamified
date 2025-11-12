@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Material extends Model
 {
@@ -16,4 +17,9 @@ class Material extends Model
         'file',
         'xp_reward',
     ];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

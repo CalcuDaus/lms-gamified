@@ -89,7 +89,6 @@
         <div>
            <input type="text" name="material_id" value="${Number(this.dataset.materialId)}">
         </div>
-
         <div>
             <label class="block mb-1 text-sm">Title</label>
             <input type="text" name="title" class="w-full p-2 rounded bg-[#192132] text-white"

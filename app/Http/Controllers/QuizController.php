@@ -2,16 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QuizRequest;
+use App\Services\QuizService;
 use Illuminate\Http\Request;
+use Laravel\Sail\Console\PublishCommand;
 
 class QuizController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    protected $quizService;
+
+    public function __construct(QuizService $quizService)
+    {
+        $this->quizService = $quizService;
+    }
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Quizzes Management',
+            'quizzes' => $this->quizService->getAllQuizzes(),
+        ];
+        return view('admin.quizzes.index', $data);
     }
 
     /**
@@ -19,15 +32,20 @@ class QuizController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'title' => 'Create Quiz',
+            'materials' => $this->quizService->getAllMaterials(),
+        ];
+        return view('admin.quizzes.create', $data);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(QuizRequest $request)
     {
-        //
+        $this->quizService->createQuiz($request->validated());
+        return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully.');
     }
 
     /**
@@ -43,7 +61,11 @@ class QuizController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = [
+            'title' => 'Edit Quiz',
+            'quiz' => $this->quizService->getQuizById($id),
+            'materials' => $this->quizService->getAllMaterials()
+        ];
     }
 
     /**

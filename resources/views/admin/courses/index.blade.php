@@ -4,7 +4,7 @@
     <div class="flex justify-center items-center font-balo max-w-[1000px] dark:text-[#d6d6d6] flex-col mx-auto">
         <div class="mt-5 w-full flex justify-end">
             <a href="{{ route('courses.create') }}"
-                class="px-4 py-2 bg-[#192132] text-white rounded-md hover:bg-[#848484] text-[12px]">
+                class="px-4 py-2 bg-[#192132] dark:bg-[#3f3f3f] text-white rounded-md hover:bg-[#848484] text-[12px]">
                 + Create Course
             </a>
         </div>

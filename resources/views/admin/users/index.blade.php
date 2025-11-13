@@ -3,7 +3,7 @@
     <div class="flex justify-center items-center font-balo max-w-[1000px] dark:text-[#d6d6d6] flex-col mx-auto">
         <div class="mt-5">
             <a href="{{ route('users.create') }}"
-                class="px-4 py-2 bg-[#192132] text-white rounded-md hover:bg-[#848484] text-[12px]">Create User</a>
+                class="px-4 py-2 bg-[#192132] dark:bg-[#3f3f3f] text-white rounded-md hover:bg-[#848484] text-[12px]">Create User</a>
         </div>
         <table id="example" class="display dark:text-[#d6d6d6] ">
             <thead>

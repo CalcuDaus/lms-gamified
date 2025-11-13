@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Material;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Quiz extends Model
 {
@@ -16,4 +17,9 @@ class Quiz extends Model
         'time_limit',
         'passing_score',
     ];
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
 }

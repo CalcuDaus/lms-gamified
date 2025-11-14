@@ -45,7 +45,7 @@ class QuizController extends Controller
     public function store(QuizRequest $request)
     {
         $this->quizService->createQuiz($request->validated());
-        return redirect()->route('quizzes.index')->with('success', 'Quiz created successfully.');
+        return redirect()->route('materials.index')->with('success', 'Quiz created successfully.');
     }
 
     /**

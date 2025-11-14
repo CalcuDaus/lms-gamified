@@ -87,10 +87,10 @@
                 });
                 const btnAddQuizzes = document.querySelectorAll('#createQuiz');
                 btnAddQuizzes.forEach(btnAddQuiz => {
-                    btnAddQuiz.addEventListener('click', async function() {
+                    btnAddQuiz.addEventListener('click',  function() {
                         const {
                             value: formValues
-                        } = await Swal.fire({
+                        } = Swal.fire({
                             title: "Multiple inputs",
                             html: `
    <form action="{{ route('quizzes.store') }}" method="POST" class="flex flex-col gap-4">
@@ -123,22 +123,16 @@
         </div>
 
         <button type="submit"
-            class="px-4 py-2 bg-[#192132] text-white rounded-md hover:bg-[#848484] text-[14px] mt-3">
+            class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-[#848484] text-[14px] mt-3">
             Save Quiz
         </button>
     </form>
   `,
                             focusConfirm: false,
-                            preConfirm: () => {
-                                return [
-                                    document.getElementById("swal-input1").value,
-                                    document.getElementById("swal-input2").value
-                                ];
-                            }
+                            showCloseButton: true,
+                            showLoaderOnConfirm: true,
+                            showConfirmButton: false,
                         });
-                        if (formValues) {
-                            Swal.fire(JSON.stringify(formValues));
-                        }
                     })
                 });
             });

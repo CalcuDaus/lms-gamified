@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\QuizRepository;
 use App\Repositories\MaterialRepository;
 
 class QuizService

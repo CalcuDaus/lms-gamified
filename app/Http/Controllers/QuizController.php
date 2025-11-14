@@ -53,7 +53,11 @@ class QuizController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = [
+            'title' => 'Quiz Detail',
+            'quiz' => $this->quizService->getQuizById($id),
+        ];
+        return view('admin.quizzes.detail', $data);
     }
 
     /**

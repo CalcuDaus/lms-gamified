@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Quiz;
+
 class QuizRepository
 {
     /**

@@ -28,10 +28,20 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $material->course->title ?? 'Unknown' }}</td>
                         <td>{{ $material->title }}</td>
-                        <td> <a href="#" id="createQuiz" data-material-id="{{ $material->id }}"
+                        <td> <div class="flex gap-2">
+                            @if ($material->quizzes->count() > 0)
+                            <a href="{{ route('quizzes.show', $material->quizzes[0]->id) }}" 
+                                class="text-[#d1d1d1] flex items-center justify-center gap-1 text-[10px] rounded-md dark:text-[#d6d6d6] dark:bg-indigo-600 px-3 py-1 bg-[#192132]">
+                                <i class="fa-solid fa-eye text-[8px]"></i><span class="mt-1">View</span>
+                            </a>
+                            @else
+                                <a href="#" id="createQuiz" data-material-id="{{ $material->id }}"
                                 class="text-[#d1d1d1] flex items-center justify-center gap-1 text-[10px] rounded-md dark:text-[#d6d6d6] dark:bg-indigo-600 px-3 py-1 bg-[#192132]">
                                 <i class="fa-solid fa-plus text-[8px]"></i><span class="mt-1">Quiz</span>
-                            </a></td>
+                            </a>
+                            @endif
+                        </div>
+                        </td>
                         <td>{{ $material->xp_reward }}</td>
                         <td>
                             @if ($material->file)
@@ -87,7 +97,7 @@
         @csrf
 
         <div>
-           <input type="text" name="material_id" value="${Number(this.dataset.materialId)}">
+           <input type="hidden" name="material_id" value="${Number(this.dataset.materialId)}">
         </div>
         <div>
             <label class="block mb-1 text-sm">Title</label>

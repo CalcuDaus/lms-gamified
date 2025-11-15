@@ -15,4 +15,11 @@ class Course extends Model
         'thumbnail',
         'created_by',
     ];
+
+    protected $with = ['user'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

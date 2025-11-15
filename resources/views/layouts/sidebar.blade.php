@@ -26,13 +26,13 @@
             </style>
             @role('student')
                 <li data-tippy-content="Dashboard"
-                    class="nav-item {{ request()->is('dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
+                    class="nav-item {{ request()->is('student/dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
                     style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="{{ route('student.dashboard') }}"><i
                             class="fa-solid fa-igloo"></i></a></li>
                 <li data-tippy-content="Courses"
-                    class="nav-item {{ request()->is('courses') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                    class="nav-item {{ request()->is('courses/*') || request()->is('courses') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
                     style="--color-main:#0074d9; --color-shadow:#005eb0;">
-                    <a href="{{ route('courses.index') }}"><i class="fa-solid fa-book-open"></i></a>
+                    <a href="{{ route('student.courses') }}"><i class="fa-solid fa-book-open"></i></a>
                 </li>
                 <li data-tippy-content="Leaderboards"
                     class="nav-item  transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"

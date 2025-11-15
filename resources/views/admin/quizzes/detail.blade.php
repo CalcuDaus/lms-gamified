@@ -73,41 +73,34 @@
                     Swal.fire({
                         title: 'Add Question',
                         html: `
-                       <form action="{{ route('questions.store') }}" method="POST" class="flex flex-col gap-4">
-    @csrf
-
-    <input type="text" name="question_text" placeholder="Question" class="w-full p-2 rounded-md border">
-
-    <!-- Dynamic Options -->
-    <div id="options-wrapper" class="flex flex-col gap-3">
-        <div class="flex gap-2">
-            <input type="text" name="options[A]" placeholder="Option A" class="flex-1 border p-2 rounded-md">
-        </div>
-        <div class="flex gap-2">
-            <input type="text" name="options[B]" placeholder="Option B" class="flex-1 border p-2 rounded-md">
-        </div>
-        <div class="flex gap-2">
-            <input type="text" name="options[C]" placeholder="Option C" class="flex-1 border p-2 rounded-md">
-        </div>
-        <div class="flex gap-2">
-            <input type="text" name="options[D]" placeholder="Option D" class="flex-1 border p-2 rounded-md">
-        </div>
-    </div>
-
-    <!-- Correct Answer -->
-    <input type="text" name="correct_answer" placeholder="Correct Answer (A/B/C/D)" class="w-full p-2 rounded-md border">
-
-    <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
-
-    <button type="button" onclick="addOption()" class="bg-blue-500 text-white px-3 py-1 rounded-md">
-    + Add Option
-</button>
-
-    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md mt-3">
-        Save Question
-    </button>
-</form>
-
+                        <form action="{{ route('questions.store') }}" method="POST" class="flex flex-col gap-4">
+                            @csrf
+                            <input type="text" name="question_text" placeholder="Question" class="w-full p-2 rounded-md border">
+                            <!-- Dynamic Options -->
+                            <div id="options-wrapper" class="flex flex-col gap-3">
+                                <div class="flex gap-2">
+                                    <input type="text" name="options[A]" placeholder="Option A" class="flex-1 border p-2 rounded-md">
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="text" name="options[B]" placeholder="Option B" class="flex-1 border p-2 rounded-md">
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="text" name="options[C]" placeholder="Option C" class="flex-1 border p-2 rounded-md">
+                                </div>
+                                <div class="flex gap-2">
+                                    <input type="text" name="options[D]" placeholder="Option D" class="flex-1 border p-2 rounded-md">
+                                </div>
+                            </div>
+                            <!-- Correct Answer -->
+                            <input type="text" name="correct_answer" placeholder="Correct Answer (A/B/C/D)" class="w-full p-2 rounded-md border">
+                            <input type="hidden" name="quiz_id" value="{{ $quiz->id }}">
+                            <button type="button" onclick="addOption()" class="bg-blue-500 text-white px-3 py-1 rounded-md">
+                            + Add Option
+                            </button>
+                            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md mt-3">
+                                Save Question
+                            </button>
+                        </form>
                         `,
                         showCloseButton: true,
                         showConfirmButton: false,

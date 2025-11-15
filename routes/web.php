@@ -48,5 +48,15 @@ Route::middleware('auth')->group(function () {
 
     // Student Routes
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
+    Route::get('courses', [StudentController::class, 'showCourses'])->name('student.courses');
+    Route::get('courses/detail/{id}', [StudentController::class, 'showCourseDetail'])->name('student.courses.show');
+
+
+    Route::get('leaderboard', [StudentController::class, 'leaderboard'])->name('student.leaderboard');
+
+
+
+
+
     Route::get('/teacher/dashboard', [TeacherController::class, 'dashboard'])->name('teacher.dashboard');
 });

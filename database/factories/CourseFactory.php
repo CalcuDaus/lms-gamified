@@ -17,7 +17,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
+            'title' => fake()->sentence(3),
             'description' => fake()->paragraph(),
             'thumbnail' => fake()->imageUrl(640, 480, 'education'),
             'created_by' => \App\Models\User::factory()->create(['role' => 'teacher'])->id,

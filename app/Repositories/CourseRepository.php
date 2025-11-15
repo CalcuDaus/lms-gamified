@@ -27,13 +27,10 @@ class CourseRepository
     }
     public function updateCourse($id, $data)
     {
-        $course = Course::find($id);
-        $course->update($data);
-        return $course;
+        return Course::find($id)->update($data);
     }
     public function deleteCourse($id)
     {
-        $course = Course::find($id);
-        return $course->delete();
+        return Course::find($id)->delete();
     }
 }

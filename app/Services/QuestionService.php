@@ -2,13 +2,42 @@
 
 namespace App\Services;
 
+use App\Repositories\QuestionRepository;
+
 class QuestionService
 {
     /**
      * Create a new class instance.
      */
-    public function __construct()
+    protected $questionRepository;
+    public function __construct(QuestionRepository $questionRepository)
     {
-        //
+        $this->questionRepository = $questionRepository;
+    }
+
+    public function getAllQuestions()
+    {
+        return $this->questionRepository->getAllQuestions();
+    }
+
+    public function getQuestionById($id)
+    {
+        return $this->questionRepository->getQuestionById($id);
+    }
+
+    public function createQuestion($data)
+    {
+        $data['options'] = json_encode($data['options']);
+        return $this->questionRepository->createQuestion($data);
+    }
+
+    public function updateQuestion($id, $data)
+    {
+        return $this->questionRepository->updateQuestion($id, $data);
+    }
+
+    public function deleteQuestion($id)
+    {
+        return $this->questionRepository->deleteQuestion($id);
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\DashboardController;
 
 // Redirect root ke halaman login
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('badges', BadgeController::class);
             Route::resource('materials', MaterialController::class);
             Route::resource('quizzes', QuizController::class);
+            Route::resource('questions', QuestionController::class);
         });
     });
 

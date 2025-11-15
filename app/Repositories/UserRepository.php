@@ -32,13 +32,10 @@ class UserRepository
     }
     public function updateUser($id, $data)
     {
-        $user = User::find($id);
-        $user->update($data);
-        return $user;
+        return User::find($id)->update($data);
     }
     public function deleteUser($id)
     {
-        $user = User::find($id);
-        return $user->delete();
+        return User::find($id)->delete();
     }
 }

@@ -36,14 +36,11 @@ class MaterialRepository
     }
     public function updateMaterial($id, $data)
     {
-        $material = Material::find($id);
-        $material->update($data);
-        return $material;
+        return Material::find($id)->update($data);
     }
 
     public function deleteMaterial($data)
     {
-        $material = Material::find($data);
-        return $material->delete();
+        return Material::find($data)->delete();
     }
 }

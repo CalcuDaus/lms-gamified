@@ -75,9 +75,10 @@ class QuizController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(QuizRequest $request, string $id)
     {
-        //
+        $this->quizService->updateQuiz($id, $request->validated());
+        return redirect()->route('quizzes.show', $id)->with('success', 'Quiz updated successfully.');
     }
 
     /**
@@ -85,6 +86,7 @@ class QuizController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->quizService->deleteQuiz($id);
+        return redirect()->route('materials.index')->with('success', 'Quiz deleted successfully.');
     }
 }

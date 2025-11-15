@@ -27,13 +27,10 @@ class BadgeRepository
     }
     public function updateBadge($id,$data)
     {
-        $badge = Badge::find($id);
-        $badge->update($data);
-        return $badge;
+        return Badge::find($id)->update($data);
     }
     public function deleteBadge($id)
     {
-        $badge = Badge::find($id);
-        return $badge->delete();
+        return Badge::find($id)->delete();
     }
 }

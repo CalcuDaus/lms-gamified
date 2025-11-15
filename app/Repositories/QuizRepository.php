@@ -30,14 +30,11 @@ class QuizRepository
 
     public function updateQuiz($id, $data)
     {
-        $quiz = Quiz::find($id);
-        $quiz->update($data);
-        return $quiz;
+        return Quiz::find($id)->pdate($data);
     }
 
     public function deleteQuiz($data)
     {
-        $quiz = Quiz::find($data);
-        return $quiz->delete();
+        return Quiz::find($data)->delete();
     }
 }

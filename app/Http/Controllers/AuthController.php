@@ -31,10 +31,14 @@ class AuthController extends Controller
     public function login(AuthRequest $request)
     {
         $result = $this->authService->login($request->validated());
+
         if (isset($result['error'])) {
             return redirect()->back()->with('error', $result['error']);
         }
-        return redirect()->route($result['role'] . '.dashboard')->with('success', 'Login successful.');
+
+        $role = $result['user']->role;
+
+        return redirect()->route($role . '.dashboard')->with('success', 'Login successful.');
     }
     public function register(UserRequest $request)
     {

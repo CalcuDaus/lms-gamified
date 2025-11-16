@@ -49,7 +49,7 @@ class AuthService
     {
         $registerData = session('register_data');
         $isValid = new OTPService()->verifyOTP($registerData['email'], $otpCode);
-        
+
         if (!$isValid) {
             return ['error' => 'Kode OTP tidak valid atau telah kedaluwarsa.'];
         }
@@ -82,6 +82,9 @@ class AuthService
         RateLimiter::clear($throttleKey);
         Auth::login($user);
         session()->regenerate();
-        return $user;
+        return [
+            'success' => true,
+            'user' => $user,
+        ];
     }
 }

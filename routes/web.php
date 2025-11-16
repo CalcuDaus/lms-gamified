@@ -17,19 +17,23 @@ use App\Http\Controllers\DashboardController;
 // Redirect root ke halaman login
 Route::redirect('/', '/login');
 
-// Grouping route otentikasi
-Route::controller(AuthController::class)->group(function () {
-    // Form routes
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::get('/register-form', 'showRegisterForm')->name('register');
-    Route::get('/verify-otp-form', 'showVerifyOTPForm')->name('verify-otp');
 
-    // Action routes
-    Route::post('/login', 'login')->name('login.post');
-    Route::post('/register', 'register')->name('register.post');
-    Route::post('/verify-otp', 'verifyOTP')->name('verify-otp.post');
-    Route::get('/logout', 'logout')->name('logout');
+Route::middleware('nonAuth')->group(function () {
+    // Grouping route otentikasi
+    Route::controller(AuthController::class)->group(function () {
+        // Form routes
+        Route::get('/login', 'showLoginForm')->name('login');
+        Route::get('/register-form', 'showRegisterForm')->name('register');
+        Route::get('/verify-otp-form', 'showVerifyOTPForm')->name('verify-otp');
+
+        // Action routes
+        Route::post('/login', 'login')->name('login.post');
+        Route::post('/register', 'register')->name('register.post');
+        Route::post('/verify-otp', 'verifyOTP')->name('verify-otp.post');
+    });
 });
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 
 Route::middleware('auth')->group(function () {

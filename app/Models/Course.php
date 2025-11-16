@@ -16,10 +16,15 @@ class Course extends Model
         'created_by',
     ];
 
-    protected $with = ['user'];
+    protected $with = ['user', 'material'];
 
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function material()
+    {
+        return $this->hasMany(Material::class);
     }
 }

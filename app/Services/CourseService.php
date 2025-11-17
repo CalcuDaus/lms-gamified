@@ -27,16 +27,32 @@ class CourseService
     public function createCourse($data)
     {
         $data['created_by'] = auth()->user()->id;
+
+        if (request()->hasFile('thumbnail')) {
+            $data['thumbnail'] = request()->file('thumbnail')->store('thumbnails', 'public');
+        }
         return $this->courseRepository->createCourse($data);
     }
 
     public function updateCourse($id, $data)
     {
+
+        if (request()->hasFile('thumbnail')) {
+            $data['thumbnail'] = request()->file('thumbnail')->store('thumbnails', 'public');
+        } else {
+            $course = $this->courseRepository->getCourseById($id);
+            $data['thumbnail'] = $course->thumbnail;
+        }
+
         return $this->courseRepository->updateCourse($id, $data);
     }
 
     public function deleteCourse($id)
     {
+        $course = $this->courseRepository->getcourseById($id);
+        if ($course->thumbnail) {
+            Storage::disk('public')->delete($course->thumbnail);
+        }
         return $this->courseRepository->deleteCourse($id);
     }
 }

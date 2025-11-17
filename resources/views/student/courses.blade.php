@@ -26,8 +26,11 @@
                         <span class="font-bold text-lg">Free</span>
                         <a href="{{ route('student.courses.show', $course->id) }}"
                             class="relative inline-flex active:translate-y-0.5 items-center justify-center px-5 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-xl group">
+                            @php
+                                $colors = ['orange','red','blue','amber','indigo','green'];
+                            @endphp
                             <span
-                                class="absolute w-0 h-0 transition-all duration-600 ease-out bg-green-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
+                                class="absolute w-0 h-0 transition-all duration-600 ease-out bg-{{ Arr::random($colors)}}-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
                             <span class="absolute bottom-0 left-0 h-full -ml-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-auto h-full opacity-100 object-stretch"
                                     viewBox="0 0 487 487">

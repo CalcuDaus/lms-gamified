@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['admin', 'student', 'teacher']);
             $table->string('avatar')->nullable();
+            $table->string('bio')->nullable();
             $table->string('phone')->nullable();
             $table->integer('level')->default(1);
             $table->integer('xp')->default(0);

@@ -25,5 +25,12 @@
         box-shadow: inset 2px 2px 10px var(--color-shadow),
             1px 1px 2px -1px var(--color-shadow);
     }
+    .scrollbar::-webkit-scrollbar {
+        width: 10px;
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+        background-color: #005f08ad;
+        border-radius: 30px;
+    }
 }
 

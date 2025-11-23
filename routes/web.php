@@ -54,7 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/student/dashboard', [StudentController::class, 'dashboard'])->name('student.dashboard');
     Route::get('courses', [StudentController::class, 'showCourses'])->name('student.courses');
     Route::get('courses/detail/{id}', [StudentController::class, 'showCourseDetail'])->name('student.courses.show');
-
+    Route::get('courses/learning-preview/{id}', [StudentController::class, 'showLearningPreview'])->name('student.courses.learning-preview');
+    Route::post('courses/take/{id}', [StudentController::class, 'studentTakeACourse'])->name('student.courses.take');
 
     Route::get('leaderboard', [StudentController::class, 'leaderboard'])->name('student.leaderboard');
 

@@ -67,7 +67,6 @@
     </script>
     @stack('scripts')
     <script src="{{ asset('assets/js/theme-animation.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
 </html>

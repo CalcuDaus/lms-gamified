@@ -15,4 +15,14 @@ class UserProgress extends Model
         'status',
         'xp_earned',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }

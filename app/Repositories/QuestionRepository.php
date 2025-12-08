@@ -16,28 +16,28 @@ class QuestionRepository
 
     public function getAllQuestions()
     {
-        Question::all();
+        return Question::all();
     }
 
     public function getQuestionById($id)
     {
-        Question::find($id);
+        return Question::find($id);
     }
 
     public function createQuestion($data)
     {
-        Question::create($data);
+        return Question::create($data);
     }
 
 
     public function updateQuestion($id, $data)
     {
-        Question::find($id)->update($data);
+        return Question::find($id)->update($data);
     }
 
 
     public function deleteQuestion($id)
     {
-        Question::find($id)->delete();
+        return Question::find($id)->delete();
     }
 }

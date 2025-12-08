@@ -16,4 +16,20 @@ class UserQuizAttemps extends Model
         'passed',
         'xp_earned',
     ];
+
+    protected $casts = [
+        'passed' => 'boolean',
+        'score' => 'integer',
+        'xp_earned' => 'integer',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 }

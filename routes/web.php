@@ -56,6 +56,13 @@ Route::middleware('auth')->group(function () {
     Route::get('courses/detail/{id}', [StudentController::class, 'showCourseDetail'])->name('student.courses.show');
     Route::get('courses/learning-preview/{id}', [StudentController::class, 'showLearningPreview'])->name('student.courses.learning-preview');
     Route::post('courses/take/{id}', [StudentController::class, 'studentTakeACourse'])->name('student.courses.take');
+    Route::get('courses/learn/{id}', [StudentController::class, 'learn'])->name('student.courses.learn');
+    Route::get('material/{id}', [StudentController::class, 'viewMaterial'])->name('student.material.view');
+
+    // Quiz Routes
+    Route::get('quiz/{quizId}/start', [StudentController::class, 'startQuiz'])->name('student.quiz.start');
+    Route::post('quiz/{quizId}/submit', [StudentController::class, 'submitQuiz'])->name('student.quiz.submit');
+    Route::get('quiz/results/{attemptId}', [StudentController::class, 'showQuizResults'])->name('student.quiz.results');
 
     Route::get('leaderboard', [StudentController::class, 'leaderboard'])->name('student.leaderboard');
 

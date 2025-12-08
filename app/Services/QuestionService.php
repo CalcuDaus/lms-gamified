@@ -33,6 +33,9 @@ class QuestionService
 
     public function updateQuestion($id, $data)
     {
+        if (isset($data['options'])) {
+            $data['options'] = json_encode($data['options']);
+        }
         return $this->questionRepository->updateQuestion($id, $data);
     }
 

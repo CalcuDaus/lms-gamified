@@ -18,8 +18,20 @@ class Quiz extends Model
         'passing_score',
     ];
 
+    protected $with = ['questions'];
+
     public function material()
     {
         return $this->belongsTo(Material::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function attempts()
+    {
+        return $this->hasMany(UserQuizAttemps::class);
     }
 }

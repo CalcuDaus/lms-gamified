@@ -30,10 +30,10 @@
                 <span class="relative text-base font-semibold"><i class="fa-solid fa-arrow-left"></i> Back</span>
             </a>
             <h1 class="text-xl font-bold text-gray-600 dark:text-[#EEEEEE]">{{ $course->title }}</h1>
-            <a href="{{ route('student.courses.learning-preview', $course->id) }}"
-                class="relative inline-flex  items-center justify-center px-5 py-2 overflow-hidden tracking-tighter text-white bg-gray-600 rounded-xl group">
+            <a href="{{ route('student.courses.learn', $course->id) }}"
+                class="relative inline-flex  items-center justify-center px-5 py-2 overflow-hidden tracking-tighter text-white bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl group">
                 <span
-                    class="absolute w-0 h-0 transition-all duration-600 ease-out bg-red-700 rounded-full group-hover:w-56 group-hover:h-56"></span>
+                    class="absolute w-0 h-0 transition-all duration-600 ease-out bg-green-700 rounded-full group-hover:w-56 group-hover:h-56"></span>
                 <span class="absolute bottom-0 left-0 h-full -ml-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-auto h-full opacity-100 object-stretch"
                         viewBox="0 0 487 487">
@@ -51,7 +51,7 @@
                 </span>
                 <span
                     class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-linear-to-b from-transparent via-transparent to-gray-200"></span>
-                <span class="relative text-base font-semibold">Start Learning</span>
+                <span class="relative text-base font-semibold"><i class="fa-solid fa-play mr-2"></i>Start Learning</span>
             </a>
 
         </section>

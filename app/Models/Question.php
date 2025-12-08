@@ -15,4 +15,13 @@ class Question extends Model
         'options',
         'correct_answer',
     ];
+
+    protected $casts = [
+        'options' => 'array',
+    ];
+
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 }

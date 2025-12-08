@@ -21,7 +21,11 @@ class QuestionController extends Controller
     }
     public function index()
     {
-        //
+        $data = [
+            'title' => 'Questions Management',
+            'questions' => $this->questionService->getAllQuestions(),
+        ];
+        return view('admin.questions.index', $data);
     }
 
     /**
@@ -29,7 +33,10 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'title' => 'Create Question',
+        ];
+        return view('admin.questions.create', $data);
     }
 
     /**
@@ -46,7 +53,11 @@ class QuestionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = [
+            'title' => 'Question Detail',
+            'question' => $this->questionService->getQuestionById($id),
+        ];
+        return view('admin.questions.show', $data);
     }
 
     /**
@@ -54,15 +65,21 @@ class QuestionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = [
+            'title' => 'Edit Question',
+            'question' => $this->questionService->getQuestionById($id),
+        ];
+        return view('admin.questions.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(QuestionRequest $request, string $id)
     {
-        //
+        $this->questionService->updateQuestion($id, $request->validated());
+        $question = $this->questionService->getQuestionById($id);
+        return redirect()->route('quizzes.show', $question->quiz_id)->with('success', 'Question updated successfully.');
     }
 
     /**
@@ -70,6 +87,9 @@ class QuestionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $question = $this->questionService->getQuestionById($id);
+        $quizId = $question->quiz_id;
+        $this->questionService->deleteQuestion($id);
+        return redirect()->route('quizzes.show', $quizId)->with('success', 'Question deleted successfully.');
     }
 }

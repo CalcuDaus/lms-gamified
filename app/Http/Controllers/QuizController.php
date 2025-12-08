@@ -70,6 +70,7 @@ class QuizController extends Controller
             'quiz' => $this->quizService->getQuizById($id),
             'materials' => $this->quizService->getAllMaterials()
         ];
+        return view('admin.quizzes.edit', $data);
     }
 
     /**

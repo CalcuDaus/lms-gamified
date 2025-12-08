@@ -1,0 +1,39 @@
+    public function dashboard()
+    {
+        $user = Auth::user();
+        $user->updateStreak(); // Update daily streak
+        
+        // Get enrolled courses with progress
+        $enrolledCourses = \App\Models\UserProgress::where('user_id', $user->id)
+            ->with(['course.material.quizzes'])
+            ->get()
+            ->map(function ($progress) use ($user) {
+                $course = $progress->course;
+                $totalQuizzes = $course->material->sum(fn($m) => $m->quizzes->count());
+                
+                if ($totalQuizzes === 0) {
+                    $course->completion_percentage = 0;
+                } else {
+                    $completed = \App\Models\UserQuizAttemps::where('user_id', $user->id)
+                        ->where('passed', true)
+                        ->whereIn('quiz_id', $course->material->flatMap->quizzes->pluck('id'))
+                        ->distinct('quiz_id')
+                        ->count();
+                    $course->completion_percentage = round(($completed / $totalQuizzes) * 100);
+                }
+                return $course;
+            });
+
+        // Calculate total completed quizzes
+        $totalCompletedQuizzes = \App\Models\UserQuizAttemps::where('user_id', $user->id)
+            ->where('passed', true)
+            ->distinct('quiz_id')
+            ->count();
+
+        $data = [
+            'title' => 'Dashboard',
+            'enrolledCourses' => $enrolledCourses,
+            'totalCompletedQuizzes' => $totalCompletedQuizzes,
+        ];
+        return view('student.dashboard', $data);
+    }

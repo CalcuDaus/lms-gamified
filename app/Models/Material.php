@@ -15,6 +15,7 @@ class Material extends Model
         'course_id',
         'title',
         'content',
+        'video_url',
         'file',
         'xp_reward',
     ];

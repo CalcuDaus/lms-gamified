@@ -21,6 +21,11 @@ class CourseRepository
     {
         return Course::find($id);
     }
+
+    public function getCoursesByTeacher($teacherId)
+    {
+        return Course::where('created_by', $teacherId)->get();
+    }
     public function createCourse($data)
     {
         return Course::create($data);

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex justify-center items-center font-balo max-w-[1200px] flex-col mx-auto p-4">
+    <div class="flex justify-center items-center font-balo max-w-[1000px] flex-col mx-auto p-4">
         {{-- Header --}}
         <section
             class="flex gap-4 justify-between w-full items-center text-gray-600 dark:text-[#EEEEEE] shadow-custom rounded-3xl p-6 mb-6"

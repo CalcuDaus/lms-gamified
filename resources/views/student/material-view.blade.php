@@ -8,6 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased">
@@ -85,9 +86,122 @@
                     @endif
 
                     {{-- Material Content --}}
-                    <div class="prose prose-lg dark:prose-invert max-w-none">
-                        {!! nl2br(e($material->content)) !!}
+                    <div id="materialContent" class="prose prose-lg dark:prose-invert text-gray-900 dark:text-white max-w-none overflow-hidden break-words">
+                        {!! $material->content !!}
                     </div>
+                    
+                    <style>
+                        #materialContent {
+                            word-wrap: break-word;
+                            overflow-wrap: break-word;
+                        }
+                        
+                        #materialContent * {
+                            max-width: 100%;
+                        }
+                        
+                        /* Headings */
+                        #materialContent h1 {
+                            font-size: 2.5rem;
+                            font-weight: 800;
+                            margin-bottom: 1rem;
+                            color: inherit;
+                        }
+                        
+                        #materialContent h2 {
+                            font-size: 2rem;
+                            font-weight: 700;
+                            margin: 1.5rem 0 1rem;
+                            color: inherit;
+                        }
+                        
+                        #materialContent h3 {
+                            font-size: 1.5rem;
+                            font-weight: 600;
+                            margin: 1rem 0 0.5rem;
+                            color: inherit;
+                        }
+                        
+                        /* Paragraphs */
+                        #materialContent p {
+                            margin: 1rem 0;
+                            line-height: 1.75;
+                            color: inherit;
+                        }
+                        
+                        /* Lists */
+                        #materialContent ul, #materialContent ol {
+                            margin: 1rem 0;
+                            padding-left: 2rem;
+                        }
+                        
+                        #materialContent li {
+                            margin: 0.5rem 0;
+                        }
+                        
+                        /* Links */
+                        #materialContent a {
+                            color: #3b82f6;
+                            text-decoration: underline;
+                        }
+                        
+                        .dark #materialContent a {
+                            color: #60a5fa;
+                        }
+                        
+                        /* Inline code */
+                        #materialContent code {
+                            background: #f3f4f6;
+                            padding: 0.25rem 0.5rem;
+                            border-radius: 0.375rem;
+                            font-size: 0.9em;
+                            font-family: 'Courier New', monospace;
+                            word-break: break-all;
+                        }
+                        
+                        .dark #materialContent code {
+                            background: #374151;
+                        }
+                        
+                        /* Code blocks */
+                        #materialContent pre {
+                            background: #1f2937;
+                            color: #f3f4f6;
+                            padding: 1rem;
+                            border-radius: 0.75rem;
+                            overflow-x: auto;
+                            margin: 1.5rem 0;
+                        }
+                        
+                        #materialContent pre code {
+                            background: transparent;
+                            padding: 0;
+                            color: inherit;
+                        }
+                        
+                        /* Blockquotes */
+                        #materialContent blockquote {
+                            border-left: 4px solid #3b82f6;
+                            padding-left: 1rem;
+                            margin: 1.5rem 0;
+                            font-style: italic;
+                            color: #6b7280;
+                        }
+                        
+                        .dark #materialContent blockquote {
+                            border-left-color: #60a5fa;
+                            color: #9ca3af;
+                        }
+                        
+                        /* Strong and emphasis */
+                        #materialContent strong {
+                            font-weight: 700;
+                        }
+                        
+                        #materialContent em {
+                            font-style: italic;
+                        }
+                    </style>
 
                     {{-- Visual Separator --}}
                     @if ($material->file || count($material->quizzes) > 0)
@@ -175,17 +289,25 @@
                     @endif
 
                     @if ($nextMaterial)
-                        <button onclick="showChallenge()"
-                            class="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
-                            <span>Continue</span>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
+                        <form action="{{ route('student.material.complete', $material->id) }}" method="POST" class="flex-1" id="continueForm">
+                            @csrf
+                            <input type="hidden" name="next_material_id" value="{{ $nextMaterial->id }}">
+                            <button type="button" onclick="showChallenge()"
+                                class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
+                                <span>Continue</span>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </form>
                     @else
-                        <a href="{{ route('student.courses.learn', $course->id) }}"
-                            class="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
-                            <span>Complete & Return</span>
-                            <i class="fa-solid fa-check-circle"></i>
-                        </a>
+                        <form action="{{ route('student.material.complete', $material->id) }}" method="POST" class="flex-1">
+                            @csrf
+                            <input type="hidden" name="return_to_course" value="1">
+                            <button type="submit"
+                                class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
+                                <span>Complete &amp; Return</span>
+                                <i class="fa-solid fa-check-circle"></i>
+                            </button>
+                        </form>
                     @endif
                 </div>
             </div>
@@ -264,7 +386,7 @@
                         timer: 2000,
                         timerProgressBar: true
                     }).then(() => {
-                        window.location.href = "{{ route('student.material.view', $nextMaterial->id) }}";
+                        document.getElementById('continueForm').submit();
                     });
                 } else {
                     Swal.fire({
@@ -277,7 +399,7 @@
                         confirmButtonColor: '#3b82f6'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "{{ route('student.material.view', $nextMaterial->id) }}";
+                            document.getElementById('continueForm').submit();
                         }
                     });
                 }

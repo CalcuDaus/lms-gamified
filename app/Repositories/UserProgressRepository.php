@@ -29,4 +29,28 @@ class UserProgressRepository
             'xp_earned' => 0
         ]);
     }
+
+    public function getStudentCountByTeacher($teacherId)
+    {
+        return UserProgress::whereHas('course', function($query) use ($teacherId) {
+            $query->where('created_by', $teacherId);
+        })->distinct('user_id')->count('user_id');
+    }
+
+    public function getStudentsByCourse($courseId)
+    {
+        return UserProgress::where('course_id', $courseId)
+            ->with('user')
+            ->get();
+    }
+
+    public function getStudentProgressInTeacherCourses($userId, $teacherId)
+    {
+        return UserProgress::where('user_id', $userId)
+            ->whereHas('course', function($query) use ($teacherId) {
+                $query->where('created_by', $teacherId);
+            })
+            ->with('course')
+            ->get();
+    }
 }

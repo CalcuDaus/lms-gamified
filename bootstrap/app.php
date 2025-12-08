@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\EnsureIsAdmin;
+use App\Http\Middleware\EnsureIsTeacher;
 use App\Http\Middleware\nonAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -15,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
     $middleware->alias([
         'ensureIsAdmin' => EnsureIsAdmin::class,
+        'ensureIsTeacher' => EnsureIsTeacher::class,
         'nonAuth' => nonAuth::class
     ]);
     })

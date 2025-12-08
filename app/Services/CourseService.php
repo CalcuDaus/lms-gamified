@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\CourseRepository;
+use Illuminate\Support\Facades\Storage;
 
 class CourseService
 {
@@ -22,6 +23,11 @@ class CourseService
     public function getCourseById($id)
     {
         return $this->courseRepository->getCourseById($id);
+    }
+
+    public function getCoursesByTeacher($teacherId)
+    {
+        return $this->courseRepository->getCoursesByTeacher($teacherId);
     }
 
     public function createCourse($data)

@@ -9,6 +9,8 @@ use App\Models\Material;
 use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\Badge;
+use App\Models\UserProgress;
+use App\Models\UserQuizAttemps;
 use Illuminate\Support\Facades\Hash;
 
 class DemoDataSeeder extends Seeder
@@ -31,16 +33,43 @@ class DemoDataSeeder extends Seeder
             ]
         );
 
-        // Create student user
-        $student = User::firstOrCreate(
+        // Create student users
+        $student1 = User::firstOrCreate(
             ['email' => 'student@lms.com'],
             [
                 'name' => 'John Doe',
                 'password' => Hash::make('password'),
                 'role' => 'student',
+                'level' => 3,
+                'xp' => 250,
+                'next_level_xp' => 300,
+                'current_streak' => 5,
+            ]
+        );
+
+        $student2 = User::firstOrCreate(
+            ['email' => 'student2@lms.com'],
+            [
+                'name' => 'Alice Johnson',
+                'password' => Hash::make('password'),
+                'role' => 'student',
+                'level' => 2,
+                'xp' => 150,
+                'next_level_xp' => 200,
+                'current_streak' => 3,
+            ]
+        );
+
+        $student3 = User::firstOrCreate(
+            ['email' => 'student3@lms.com'],
+            [
+                'name' => 'Bob Smith',
+                'password' => Hash::make('password'),
+                'role' => 'student',
                 'level' => 1,
-                'xp' => 0,
+                'xp' => 50,
                 'next_level_xp' => 100,
+                'current_streak' => 1,
             ]
         );
 
@@ -48,12 +77,25 @@ class DemoDataSeeder extends Seeder
         $teacher = User::firstOrCreate(
             ['email' => 'teacher@lms.com'],
             [
-                'name' => 'Jane Smith',
+                'name' => 'Prof. Jane Smith',
                 'password' => Hash::make('password'),
                 'role' => 'teacher',
-                'level' => 1,
-                'xp' => 0,
-                'next_level_xp' => 100,
+                'level' => 5,
+                'xp' => 500,
+                'next_level_xp' => 500,
+            ]
+        );
+
+        // Create second teacher for comparison
+        $teacher2 = User::firstOrCreate(
+            ['email' => 'teacher2@lms.com'],
+            [
+                'name' => 'Dr. Michael Brown',
+                'password' => Hash::make('password'),
+                'role' => 'teacher',
+                'level' => 4,
+                'xp' => 400,
+                'next_level_xp' => 400,
             ]
         );
 
@@ -68,13 +110,25 @@ class DemoDataSeeder extends Seeder
             [
                 'title' => 'PHP & Laravel Mastery',
                 'description' => 'Master PHP programming and the Laravel framework. Build modern web applications with best practices and advanced techniques.',
-                'created_by' => $admin->id,
+                'created_by' => $teacher->id,
                 'thumbnail' => null,
             ],
             [
                 'title' => 'Database Design & SQL',
                 'description' => 'Learn database design principles and SQL queries. Understand how to create efficient and scalable database systems.',
                 'created_by' => $teacher->id,
+                'thumbnail' => null,
+            ],
+            [
+                'title' => 'React & Modern JavaScript',
+                'description' => 'Build interactive user interfaces with React. Learn modern JavaScript ES6+ features and component-based architecture.',
+                'created_by' => $teacher->id,
+                'thumbnail' => null,
+            ],
+            [
+                'title' => 'Python Programming for Beginners',
+                'description' => 'Start your programming journey with Python. Learn syntax, data structures, and build practical projects.',
+                'created_by' => $teacher2->id,
                 'thumbnail' => null,
             ],
         ];
@@ -92,6 +146,79 @@ class DemoDataSeeder extends Seeder
                 $this->seedLaravelCourse($course);
             } elseif ($course->title === 'Database Design & SQL') {
                 $this->seedDatabaseCourse($course);
+            } elseif ($course->title === 'React & Modern JavaScript') {
+                $this->seedReactCourse($course);
+            } elseif ($course->title === 'Python Programming for Beginners') {
+                $this->seedPythonCourse($course);
+            }
+        }
+
+        // Enroll students in teacher's courses for analytics testing
+        $teacherCourses = Course::where('created_by', $teacher->id)->get();
+        foreach ($teacherCourses as $course) {
+            // Enroll all students
+            UserProgress::firstOrCreate([
+                'user_id' => $student1->id,
+                'course_id' => $course->id,
+            ], [
+                'status' => 'in_progress',
+                'xp_earned' => 0,
+            ]);
+
+            UserProgress::firstOrCreate([
+                'user_id' => $student2->id,
+                'course_id' => $course->id,
+            ], [
+                'status' => 'in_progress',
+                'xp_earned' => 0,
+            ]);
+
+            UserProgress::firstOrCreate([
+                'user_id' => $student3->id,
+                'course_id' => $course->id,
+            ], [
+                'status' => 'in_progress',
+                'xp_earned' => 0,
+            ]);
+
+            // Create some quiz attempts for analytics
+            $quizzes = Quiz::whereHas('material', function($q) use ($course) {
+                $q->where('course_id', $course->id);
+            })->get();
+
+            foreach ($quizzes->take(2) as $quiz) {
+                // Student 1 - passed
+                UserQuizAttemps::firstOrCreate([
+                    'user_id' => $student1->id,
+                    'quiz_id' => $quiz->id,
+                ], [
+                    'score' => 85,
+                    'passed' => true,
+                    'xp_earned' => $quiz->xp_reward,
+                    'created_at' => now()->subDays(rand(1, 7)),
+                ]);
+
+                // Student 2 - passed
+                UserQuizAttemps::firstOrCreate([
+                    'user_id' => $student2->id,
+                    'quiz_id' => $quiz->id,
+                ], [
+                    'score' => 75,
+                    'passed' => true,
+                    'xp_earned' => $quiz->xp_reward,
+                    'created_at' => now()->subDays(rand(1, 7)),
+                ]);
+
+                // Student 3 - failed first attempt
+                UserQuizAttemps::firstOrCreate([
+                    'user_id' => $student3->id,
+                    'quiz_id' => $quiz->id,
+                ], [
+                    'score' => 60,
+                    'passed' => false,
+                    'xp_earned' => 0,
+                    'created_at' => now()->subDays(rand(1, 7)),
+                ]);
             }
         }
 
@@ -111,9 +238,15 @@ class DemoDataSeeder extends Seeder
         }
 
         echo "Demo data seeded successfully!\n";
+        echo "=================================\n";
         echo "Admin: admin@lms.com / password\n";
-        echo "Student: student@lms.com / password\n";
         echo "Teacher: teacher@lms.com / password\n";
+        echo "Teacher 2: teacher2@lms.com / password\n";
+        echo "Student 1: student@lms.com / password\n";
+        echo "Student 2: student2@lms.com / password\n";
+        echo "Student 3: student3@lms.com / password\n";
+        echo "=================================\n";
+        echo "Teacher has 3 courses with materials, quizzes, and student enrollments!\n";
     }
 
     private function seedWebDevCourse($course)
@@ -369,6 +502,116 @@ class DemoDataSeeder extends Seeder
                     'D' => 'FETCH',
                 ]),
                 'correct_answer' => 'C',
+            ]
+        );
+    }
+
+    private function seedReactCourse($course)
+    {
+        $material1 = Material::firstOrCreate(
+            ['title' => 'React Fundamentals', 'course_id' => $course->id],
+            [
+                'content' => 'React is a JavaScript library for building user interfaces. It allows you to create reusable UI components and manage application state efficiently.',
+                'video_url' => 'https://www.youtube.com/watch?v=SqcY0GlETPk',
+                'xp_reward' => 100,
+            ]
+        );
+
+        $quiz1 = Quiz::firstOrCreate(
+            ['title' => 'React Basics Quiz', 'material_id' => $material1->id],
+            [
+                'xp_reward' => 200,
+                'time_limit' => 20,
+                'passing_score' => 75,
+            ]
+        );
+
+        Question::firstOrCreate(
+            ['quiz_id' => $quiz1->id, 'question_text' => 'What is React?'],
+            [
+                'options' => json_encode([
+                    'A' => 'A JavaScript framework',
+                    'B' => 'A JavaScript library for building UIs',
+                    'C' => 'A database',
+                    'D' => 'A CSS framework',
+                ]),
+                'correct_answer' => 'B',
+            ]
+        );
+
+        Question::firstOrCreate(
+            ['quiz_id' => $quiz1->id, 'question_text' => 'What is JSX?'],
+            [
+                'options' => json_encode([
+                    'A' => 'JavaScript Extension',
+                    'B' => 'Java Syntax Extension',
+                    'C' => 'JavaScript XML',
+                    'D' => 'JSON Extension',
+                ]),
+                'correct_answer' => 'C',
+            ]
+        );
+
+        $material2 = Material::firstOrCreate(
+            ['title' => 'React Hooks', 'course_id' => $course->id],
+            [
+                'content' => 'Hooks are functions that let you use state and other React features in functional components. Common hooks include useState, useEffect, and useContext.',
+                'xp_reward' => 100,
+            ]
+        );
+
+        $quiz2 = Quiz::firstOrCreate(
+            ['title' => 'React Hooks Quiz', 'material_id' => $material2->id],
+            [
+                'xp_reward' => 250,
+                'time_limit' => 25,
+                'passing_score' => 80,
+            ]
+        );
+
+        Question::firstOrCreate(
+            ['quiz_id' => $quiz2->id, 'question_text' => 'Which hook is used for managing state in functional components?'],
+            [
+                'options' => json_encode([
+                    'A' => 'useEffect',
+                    'B' => 'useState',
+                    'C' => 'useContext',
+                    'D' => 'useReducer',
+                ]),
+                'correct_answer' => 'B',
+            ]
+        );
+    }
+
+    private function seedPythonCourse($course)
+    {
+        $material1 = Material::firstOrCreate(
+            ['title' => 'Python Basics', 'course_id' => $course->id],
+            [
+                'content' => 'Python is a high-level, interpreted programming language known for its simplicity and readability. It\'s perfect for beginners and powerful for experts.',
+                'xp_reward' => 80,
+            ]
+        );
+
+        $quiz1 = Quiz::firstOrCreate(
+            ['title' => 'Python Fundamentals Quiz', 'material_id' => $material1->id],
+            [
+                'xp_reward' => 150,
+                'time_limit' => 15,
+                'passing_score' => 70,
+            ]
+        );
+
+        Question::firstOrCreate(
+            ['quiz_id' => $quiz1->id, 'question_text' => 'Which keyword is used to define a function in Python?'],
+            [
+                'options' => json_encode([
+                    'A' => 'function',
+                    'B' => 'def',
+                    'C' => 'func',
+                    'D' => 'define',
+                ]),
+                'correct_answer' => 'B',
             ]
         );
     }

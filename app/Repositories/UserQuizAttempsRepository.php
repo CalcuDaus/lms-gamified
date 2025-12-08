@@ -64,4 +64,19 @@ class UserQuizAttempsRepository
             ->where('quiz_id', $quizId)
             ->max('score');
     }
+
+    /**
+     * Get attempts by quiz IDs for teacher analytics.
+     */
+    public function getAttemptsByQuizIds(array $quizIds)
+    {
+        if (empty($quizIds)) {
+            return collect();
+        }
+        
+        return UserQuizAttemps::whereIn('quiz_id', $quizIds)
+            ->with(['user', 'quiz'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
 }

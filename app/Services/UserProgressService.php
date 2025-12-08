@@ -23,4 +23,19 @@ class UserProgressService
     {
         return $this->userProgressRepository->takeACourse($userId, $courseId);
     }
+
+    public function getStudentCountByTeacher($teacherId)
+    {
+        return $this->userProgressRepository->getStudentCountByTeacher($teacherId);
+    }
+
+    public function getStudentsByCourse($courseId)
+    {
+        return $this->userProgressRepository->getStudentsByCourse($courseId);
+    }
+
+    public function getStudentProgressInTeacherCourses($userId, $teacherId)
+    {
+        return $this->userProgressRepository->getStudentProgressInTeacherCourses($userId, $teacherId);
+    }
 }

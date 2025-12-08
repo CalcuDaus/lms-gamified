@@ -71,6 +71,21 @@
                     style="--color-main:#ff7921; --color-shadow:#b85818;">
                     <a href="{{ route('materials.index') }}"><i class="fa-solid fa-book"></i></a>
                 </li>
+                @elserole('teacher')
+                <li data-tippy-content="Teacher Dashboard"
+                    class="nav-item {{ request()->is('teacher/dashboard') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5  "
+                    style="--color-main:#01ff70; --color-shadow:#00aa49;"><a href="{{ route('teacher.dashboard') }}"><i
+                            class="fa-solid fa-chalkboard-user"></i></a></li>
+                <li data-tippy-content="My Courses"
+                    class="nav-item {{ request()->is('teacher/courses*') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                    style="--color-main:#0074d9; --color-shadow:#005eb0;">
+                    <a href="{{ route('teacher.courses.index') }}"><i class="fa-solid fa-book-open"></i></a>
+                </li>
+                <li data-tippy-content="Analytics"
+                    class="nav-item {{ request()->is('teacher/analytics*') || request()->is('teacher/students*') ? 'active' : '' }} transition-all duration-300 px-3 py-2 rounded-md active:shadow-none active:translate-y-0.5"
+                    style="--color-main:#ff4136; --color-shadow:#c32d25;">
+                    <a href="{{ route('teacher.courses.index') }}"><i class="fa-solid fa-chart-line"></i></a>
+                </li>
             @endrole
         </ul>
     </nav>

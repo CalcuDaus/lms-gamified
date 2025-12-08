@@ -112,7 +112,7 @@ class StudentController extends Controller
         
         $attempt = $this->quizAttempsService->submitQuizAttempt($userId, $quizId, $answers);
         
-        return redirect()->route('student.quiz.results', $attempt->id)->with('success', 'Quiz submitted successfully!');
+        return redirect()->route('student.quiz.results', $attempt->id);
     }
 
     public function showQuizResults($attemptId)
@@ -167,6 +167,14 @@ class StudentController extends Controller
         $course = $material->course;
         $userId = Auth::id();
         
+        // Parse markdown content to HTML
+        $material->content = \App\Helpers\MarkdownHelper::parse($material->content);
+        
+        // Convert YouTube URL to embed format
+        if ($material->video_url) {
+            $material->video_url = \App\Helpers\MarkdownHelper::convertYouTubeUrl($material->video_url);
+        }
+        
         // Get all materials in this course for navigation
         $allMaterials = $course->material;
         $materialIndex = $allMaterials->search(function($item) use ($materialId) {
@@ -211,5 +219,25 @@ class StudentController extends Controller
         ];
         
         return view('student.material-view', $data);
+    }
+
+    public function completeMaterial(Request $request, $materialId)
+    {
+        $user = Auth::user();
+        $material = app(\App\Services\MaterialService::class)->getMaterialById($materialId);
+        $course = $material->course;
+        
+        // Award XP for completing the material
+        $user->addXP($material->xp_reward);
+        
+        // Check if we should redirect to next material or back to course
+        if ($request->has('next_material_id')) {
+            return redirect()->route('student.material.view', $request->next_material_id)
+                ->with('success', 'Material completed! +' . $material->xp_reward . ' XP earned!');
+        }
+        
+        // Return to course page
+        return redirect()->route('student.courses.learn', $course->id)
+            ->with('success', 'Material completed! +' . $material->xp_reward . ' XP earned!');
     }
 }

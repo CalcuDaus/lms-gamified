@@ -1,103 +1,135 @@
 @extends('layouts.app')
+
 @section('content')
-    <div class="flex justify-center items-center font-balo max-w-[1000px] flex-col mx-auto">
-        {{-- Card Section --}}
-        <section class="flex w-full mt-10 justify-between items-end">
-            <div class="flex w-[288px] h-[148px] rounded-3xl items-center  justify-center overflow-hidden shadow-custom"
-                style="--color-shadow:#ff4136; ">
-                <div class="p-6 flex flex-col text-[#ff4036] items-center relative justify-center ">
-                    <h3 class="text-2xl font-black mb-2"> Courses</h3>
-                    <p class="text-6xl font-black">10</p>
-                    <i style="animation-delay: 400ms"
-                        class="fa-solid fa-fire text-[#ff4036a9] animate-bounce absolute text-[85px] z-1 -bottom-10 -right-[100px] blur-[1px] "></i>
+    <div class="flex justify-center items-center font-balo max-w-[1400px] flex-col mx-auto p-6">
+        {{-- Header Section --}}
+        <div class="w-full mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                Teacher Dashboard 👨‍🏫
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400 text-lg">Manage your courses and monitor student progress</p>
+        </div>
+
+        {{-- Stats Cards Grid --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mb-8">
+            {{-- Total Courses Card --}}
+            <div class="flex flex-col text-gray-600 dark:text-[#9b9b9b] hover:dark:text-[#d6d6d6] transition-all duration-300 shadow-custom rounded-3xl p-6"
+                 style="--color-shadow:#9b9b9b;">
+                <div class="flex items-center justify-between mb-4">
+                    <i class="fa-solid fa-book text-4xl text-blue-600"></i>
+                    <span class="text-sm font-semibold bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full">
+                        Active
+                    </span>
                 </div>
-            </div>
-            <div class="flex w-[288px] h-[148px] text-[#00aa4a] rounded-3xl items-center relative overflow-hidden -translate-y-10 justify-center shadow-custom"
-                style="--color-shadow:#00aa49; ">
-                <div class="p-6 flex flex-col items-center justify-center">
-                    <h3 class="text-2xl font-black mb-2">Completed Courses</h3>
-                    <p class="text-6xl font-black">9</p>
-                    <i style="animation-delay: 300ms"
-                        class="fa-solid fa-book text-[#00aa4aa6] animate-bounce absolute text-[85px] z-1 -bottom-8 -right-5 blur-[1px] "></i>
-                </div>
-            </div>
-            <div class="flex w-[288px] text-[#0074d9] h-[148px] rounded-3xl items-center relative overflow-hidden justify-center shadow-custom"
-                style="--color-shadow:#0074d9; ">
-                <div class="p-6 flex flex-col items-center justify-center">
-                    <h3 class="text-2xl font-black mb-2">Badges</h3>
-                    <p class="text-6xl  font-black">22</p>
-                    <i style="animation-delay: 200ms"
-                        class="fa-solid fa-award text-[#0074d9b2] animate-bounce absolute text-[85px] z-1 -bottom-6 -right-[19px] blur-[1px] "></i>
-                </div>
+                <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">My Courses</h3>
+                <p class="text-5xl font-bold text-gray-900 dark:text-white">{{ $courses->count() }}</p>
+                <p class="text-sm mt-2">
+                    {{ $courses->count() > 0 ? 'Keep creating! 📚' : 'Create your first course!' }}
+                </p>
             </div>
 
-        </section>
-        <section class="flex w-full mt-10">
-            <div class="flex w-[55%] flex-col gap-6">
-                {{-- Widget Progress --}}
-                <div class="flex gap-2 flex-col text-gray-600 dark:text-[#EEEEEE] shadow-custom rounded-3xl p-6"
-                    style="--color-shadow:#9b9b9b;">
-                    <h3 class="font-black text-2xl ">Progress & XP</h3>
-                    <div class="w-full h-3 bg-gray-400 rounded-full mt-2 overflow-hidden">
-                        <div class="h-3 from-[#094b00] animate-pulse to-[#00d45c] bg-linear-to-r rounded-full w-3/4">
-                            <div class="h-0.5  bg-[#00d45c] rounded-full w-3/4">
+            {{-- Total Students Card --}}
+            <div class="flex flex-col text-gray-600 dark:text-[#9b9b9b] hover:dark:text-[#d6d6d6] transition-all duration-300 shadow-custom rounded-3xl p-6"
+                 style="--color-shadow:#9b9b9b;">
+                <div class="flex items-center justify-between mb-4">
+                    <i class="fa-solid fa-users text-4xl text-green-600"></i>
+                    <span class="text-sm font-semibold bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-3 py-1 rounded-full">
+                        Enrolled
+                    </span>
+                </div>
+                <h3 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Total Students</h3>
+                <p class="text-5xl font-bold text-gray-900 dark:text-white">{{ $totalStudents }}</p>
+                <p class="text-sm mt-2">
+                    {{ $totalStudents > 0 ? 'Great reach! 🎯' : 'No students yet' }}
+                </p>
+            </div>
+
+            {{-- Quick Actions Card --}}
+            <div class="flex flex-col text-gray-600 dark:text-[#9b9b9b] hover:dark:text-[#d6d6d6] transition-all duration-300 shadow-custom rounded-3xl p-6"
+                 style="--color-shadow:#9b9b9b;">
+                <div class="flex items-center justify-between mb-4">
+                    <i class="fa-solid fa-rocket text-4xl text-purple-600"></i>
+                    <span class="text-sm font-semibold bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-3 py-1 rounded-full">
+                        Actions
+                    </span>
+                </div>
+                <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Quick Actions</h3>
+                <div class="flex flex-col gap-2">
+                    <a href="{{ route('teacher.courses.create') }}" 
+                       class="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-xl transition-all text-center">
+                        <i class="fa-solid fa-plus mr-2"></i>New Course
+                    </a>
+                    <a href="{{ route('teacher.courses.index') }}" 
+                       class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-semibold hover:shadow-lg transition-all text-center">
+                        <i class="fa-solid fa-list mr-2"></i>View All Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {{-- My Courses Section --}}
+        <div class="w-full">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">My Courses</h2>
+                <a href="{{ route('teacher.courses.create') }}" 
+                   class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-xl transition-all">
+                    <i class="fa-solid fa-plus mr-2"></i>Create Course
+                </a>
+            </div>
+
+            @if($courses->count() > 0)
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @foreach($courses as $course)
+                        <div class="flex gap-2 flex-col text-gray-600 dark:text-[#9b9b9b] hover:dark:text-[#d6d6d6] transition-all duration-300 shadow-custom rounded-3xl p-6"
+                             style="--color-shadow:#9b9b9b;">
+                            @if($course->thumbnail)
+                                <img src="{{ asset('storage/' . $course->thumbnail) }}" class="rounded-md object-cover h-48" alt="{{ $course->title }}" width="100%">
+                            @else
+                                <img src="https://picsum.photos/seed/{{ $course->id }}/600/400" class="rounded-md object-cover h-48" alt="{{ $course->title }}" width="100%">
+                            @endif
+                            <div class="h-16 overflow-hidden mt-2">
+                                <h3 class="font-black text-2xl text-gray-900 dark:text-white">{{ Str::limit($course->title, 35) }}</h3>
+                            </div>
+                            <p class="text-sm -mt-1">{{ Str::limit($course->description, 70) }}</p>
+                            
+                            <div class="flex justify-between items-center mt-2 text-xs">
+                                <span><i class="fa-solid fa-book mr-1"></i>{{ $course->material->count() }} Materials</span>
+                                <span><i class="fa-solid fa-clipboard-question mr-1"></i>{{ $course->material->sum(fn($m) => $m->quizzes->count()) }} Quizzes</span>
+                            </div>
+
+                            <div class="flex gap-2 mt-4">
+                                <a href="{{ route('teacher.courses.edit', $course->id) }}"
+                                    class="flex-1 px-4 py-2 bg-blue-600 text-white text-center rounded-xl font-semibold hover:bg-blue-700 transition-all">
+                                    <i class="fa-solid fa-edit"></i> Edit
+                                </a>
+                                <a href="{{ route('teacher.materials.create', $course->id) }}"
+                                    class="flex-1 px-4 py-2 bg-green-600 text-white text-center rounded-xl font-semibold hover:bg-green-700 transition-all">
+                                    <i class="fa-solid fa-plus"></i> Add Material
+                                </a>
+                                <a href="{{ route('teacher.analytics.course', $course->id) }}"
+                                    class="px-4 py-2 bg-purple-600 text-white rounded-xl font-semibold hover:bg-purple-700 transition-all">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <p class="text-end text-sm text-gray-500">350/500 XP</p>
-                    <h3 class="font-bold">Level Junior</h3>
-                    <div class="flex justify-between">
-                        <div class="badges">
-                            <i class="fa-solid fa-medal text-yellow-500"></i>
-                            <i class="fa-solid fa-medal text-yellow-500"></i>
-                            <i class="fa-solid fa-medal text-yellow-500"></i>
-                            {{-- <img src="{{ asset('assets/img/badge1.png') }}" alt="Badge 1" class="w-12 h-12 mr-2"> --}}
-                            {{-- <img src="{{ asset('assets/img/badge2.png') }}" alt="Badge 2" class="w-12 h-12 mr-2"> --}}
-                            {{-- <img src="{{ asset('assets/img/badge3.png') }}" alt="Badge 3" class="w-12 h-12 mr-2"> --}}
-                        </div>
-
-                        <button
-                            class="relative inline-flex  items-center justify-center px-5 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-xl group">
-                            <span
-                                class="absolute w-0 h-0 transition-all duration-600 ease-out bg-green-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
-                            <span class="absolute bottom-0 left-0 h-full -ml-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-auto h-full opacity-100 object-stretch"
-                                    viewBox="0 0 487 487">
-                                    <path fill-opacity=".1" fill-rule="nonzero" fill="#FFF"
-                                        d="M0 .3c67 2.1 134.1 4.3 186.3 37 52.2 32.7 89.6 95.8 112.8 150.6 23.2 54.8 32.3 101.4 61.2 149.9 28.9 48.4 77.7 98.8 126.4 149.2H0V.3z">
-                                    </path>
-                                </svg>
-                            </span>
-                            <span class="absolute top-0 right-0 w-12 h-full -mr-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="object-cover w-full h-full"
-                                    viewBox="0 0 487 487">
-                                    <path fill-opacity=".1" fill-rule="nonzero" fill="#FFF"
-                                        d="M487 486.7c-66.1-3.6-132.3-7.3-186.3-37s-95.9-85.3-126.2-137.2c-30.4-51.8-49.3-99.9-76.5-151.4C70.9 109.6 35.6 54.8.3 0H487v486.7z">
-                                    </path>
-                                </svg>
-                            </span>
-                            <span
-                                class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-linear-to-b from-transparent via-transparent to-gray-200"></span>
-                            <span class="relative text-base font-semibold">Claim Rewards</span>
-                        </button>
-
-                    </div>
+                    @endforeach
                 </div>
-                {{-- Widget Log Activity --}}
-                <div class="flex gap-2 flex-col text-gray-600 dark:text-[#EEEEEE] shadow-custom rounded-3xl p-6"
-                    style="--color-shadow:#9b9b9b;">
-                    <h3 class="font-black text-2xl ">Recent Activity</h3>
-                    <p class="text-red-500">There is no recent activity</p>
+            @else
+                {{-- Empty State --}}
+                <div class="flex flex-col text-gray-600 dark:text-[#9b9b9b] transition-all duration-300 shadow-custom rounded-3xl p-16 text-center"
+                     style="--color-shadow:#9b9b9b;">
+                    <i class="fa-solid fa-book-open text-8xl text-gray-300 dark:text-gray-600 mb-6"></i>
+                    <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">No Courses Yet</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-8 text-lg">
+                        Create your first course and start teaching!
+                    </p>
+                    <a href="{{ route('teacher.courses.create') }}" 
+                       class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl font-bold text-lg hover:shadow-2xl transition-all mx-auto">
+                        <i class="fa-solid fa-rocket"></i>
+                        Create First Course
+                    </a>
                 </div>
-            </div>
-            <div class="flex w-[45%] ps-6">
-                {{-- Widget Leaderboards --}}
-                <div class="flex gap-2 w-full flex-col text-gray-600 dark:text-[#EEEEEE] shadow-custom rounded-3xl p-6"
-                    style="--color-shadow:#9b9b9b;">
-                    <h3 class="font-black text-2xl ">Leaderboards</h3>
-                    <p class="text-red-500">There is no leaderboards</p>
-                </div>
-            </div>
-        </section>
+            @endif
+        </div>
     </div>
 @endsection

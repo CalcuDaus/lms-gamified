@@ -121,4 +121,12 @@ class UserQuizAttempsService
     {
         return $this->attempsRepository->getBestScore($userId, $quizId);
     }
+
+    /**
+     * Get attempts by quiz IDs for teacher analytics.
+     */
+    public function getAttemptsByQuizIds(array $quizIds)
+    {
+        return $this->attempsRepository->getAttemptsByQuizIds($quizIds);
+    }
 }

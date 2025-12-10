@@ -61,6 +61,15 @@ class User extends Authenticatable
     }
 
     /**
+     * Get user's earned badges.
+     */
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class, 'user_badges')
+            ->withTimestamps();
+    }
+
+    /**
      * Update user's daily streak.
      */
     public function updateStreak()
@@ -94,12 +103,13 @@ class User extends Authenticatable
     }
 
     /**
-     * Add XP to user and check for level up.
+     * Add XP to user and check for level up and badges.
      */
     public function addXp($amount)
     {
         $this->xp += $amount;
         $this->checkLevelUp();
+        $this->checkAndAwardBadges();
         $this->save();
     }
 
@@ -114,4 +124,39 @@ class User extends Authenticatable
             $this->next_level_xp = $this->calculateNextLevelXp();
         }
     }
+
+    /**
+     * Check and award any eligible badges based on total XP earned.
+     */
+    public function checkAndAwardBadges()
+    {
+        // Calculate total XP (current XP + XP spent on levels)
+        $totalXp = $this->xp;
+        for ($i = 1; $i < $this->level; $i++) {
+            $totalXp += $i * 100; // Add XP spent on previous levels
+        }
+
+        // Get all badges user is eligible for but hasn't earned yet
+        $eligibleBadges = Badge::where('min_xp', '<=', $totalXp)
+            ->whereNotIn('id', $this->badges()->pluck('badges.id'))
+            ->get();
+
+        // Award eligible badges
+        foreach ($eligibleBadges as $badge) {
+            $this->badges()->attach($badge->id);
+        }
+    }
+
+    /**
+     * Get total XP earned (including XP spent on levels).
+     */
+    public function getTotalXpAttribute()
+    {
+        $totalXp = $this->xp;
+        for ($i = 1; $i < $this->level; $i++) {
+            $totalXp += $i * 100;
+        }
+        return $totalXp;
+    }
 }
+

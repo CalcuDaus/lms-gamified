@@ -31,7 +31,7 @@ class UserQuizAttempsRepository
     /**
      * Get a single attempt by ID.
      */
-    public function getAttemptById($id)
+    public function getAttemptById($id): ?UserQuizAttemps
     {
         return UserQuizAttemps::with(['quiz', 'user'])->find($id);
     }

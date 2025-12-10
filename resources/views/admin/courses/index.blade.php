@@ -5,7 +5,7 @@
         <div class="mt-5 w-full flex justify-end">
             <a href="{{ route('courses.create') }}"
                 class="px-4 py-2 bg-[#192132] dark:bg-[#3f3f3f] text-white rounded-md hover:bg-[#848484] text-[12px]">
-                + Create Course
+                + {{ __('messages.create') }} {{ __('messages.course_title') }}
             </a>
         </div>
 
@@ -14,11 +14,11 @@
                 <tr>
                     <th>#</th>
                     {{-- <th>Thumbnail</th> --}}
-                    <th>Title</th>
+                    <th>{{ __('messages.title') }}</th>
                     <th>Description</th>
-                    <th>Created By</th>
-                    <th>Created At</th>
-                    <th>Action</th>
+                    <th>{{ __('messages.created_by') }}</th>
+                    <th>{{ __('messages.created_at') }}</th>
+                    <th>{{ __('messages.actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +51,7 @@
                                     <i class="fa-solid fa-pen cursor-pointer"></i>
                                 </a>
                                 <form action="{{ route('courses.destroy', $course->id) }}" method="POST"
-                                    onsubmit="return confirm('Are you sure you want to delete this course?')">
+                                    onsubmit="return confirm('{{ __('messages.delete_confirmation') }}')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">

@@ -5,7 +5,7 @@
         {{-- Header --}}
         <div class="flex gap-4 justify-between w-full items-center text-gray-600 dark:text-[#EEEEEE] shadow-custom rounded-3xl p-6 mb-6">
             <div>
-                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Edit Material</h1>
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">{{ __('messages.edit_material') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400">{{ $material->title }}</p>
             </div>
             <button onclick="history.back()" 
@@ -22,10 +22,11 @@
 
                 <div class="mb-6">
                     <label for="title" class="block text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        Material Title <span class="text-red-500">*</span>
+                        {{ __('messages.material_title') }} <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="title" id="title" required value="{{ old('title', $material->title) }}"
-                           class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">
+                           class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                           style="--color-shadow:#9b9b9b;">
                     @error('title')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -33,7 +34,7 @@
 
                 <div class="mb-6">
                     <label for="content" class="block text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        Content
+                        {{ __('messages.content') }}
                     </label>
                     <textarea name="content" id="materialContent">{{ old('content', $material->content) }}</textarea>
                     @error('content')
@@ -47,7 +48,8 @@
                             Video URL (Optional)
                         </label>
                         <input type="url" name="video_url" id="video_url" value="{{ old('video_url', $material->video_url) }}"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
+                               class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                               style="--color-shadow:#9b9b9b;"
                                placeholder="https://youtube.com/watch?v=...">
                         @if($material->video_url)
                             <p class="text-sm text-green-600 dark:text-green-400 mt-1">
@@ -64,7 +66,8 @@
                             Attachment (Optional)
                         </label>
                         <input type="file" name="file" id="file"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                               class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                               style="--color-shadow:#9b9b9b;">
                         @if($material->file)
                             <p class="text-sm text-green-600 dark:text-green-400 mt-1">
                                 <i class="fa-solid fa-file"></i> Current file attached
@@ -81,7 +84,8 @@
                         XP Reward <span class="text-red-500">*</span>
                     </label>
                     <input type="number" name="xp_reward" id="xp_reward" required min="0" value="{{ old('xp_reward', $material->xp_reward) }}"
-                           class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">
+                           class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                           style="--color-shadow:#9b9b9b;">
                     @error('xp_reward')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -89,7 +93,7 @@
 
                 <div class="flex gap-4">
                     <button type="submit" 
-                            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
+                            class="px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
                         <i class="fa-solid fa-save mr-2"></i>Update Material
                     </button>
                     <button type="button" onclick="history.back()"

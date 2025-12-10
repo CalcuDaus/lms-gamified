@@ -23,7 +23,8 @@
                 <div class="mb-4">
                     <label class="block text-gray-900 dark:text-white font-semibold mb-2">Question Text <span class="text-red-500">*</span></label>
                     <textarea name="question_text" required rows="3"
-                              class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
+                              class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                              style="--color-shadow:#9b9b9b;"
                               placeholder="Enter your question here..."></textarea>
                 </div>
 
@@ -32,46 +33,36 @@
                     <div id="optionsContainer" class="space-y-3">
                         <div class="flex gap-3 items-center option-row">
                             <input type="text" name="options[]" required
-                                   class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
+                                   class="flex-1 px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                                   style="--color-shadow:#9b9b9b;"
                                    placeholder="Option A">
-                            <label class="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-xl cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                                <input type="radio" name="correct_answer_index" value="0" required class="w-5 h-5">
+                            <label class="flex items-center justify-center px-4 pt-3 pb-2 rounded-3xl shadow-custom cursor-pointer transition-all bg-white dark:bg-gray-800" data-correct-label style="--color-shadow:#9b9b9b;">
+                                <input type="radio" name="correct_answer_index" value="0" required class="sr-only">
                                 <span class="text-gray-900 dark:text-white font-semibold">Correct</span>
                             </label>
                         </div>
                         <div class="flex gap-3 items-center option-row">
                             <input type="text" name="options[]" required
-                                   class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
+                                    class="flex-1 px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                                   style="--color-shadow:#9b9b9b;"
                                    placeholder="Option B">
-                            <label class="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-xl cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                                <input type="radio" name="correct_answer_index" value="1" required class="w-5 h-5">
-                                <span class="text-gray-900 dark:text-white font-semibold">Correct</span>
-                            </label>
-                        </div>
-                        <div class="flex gap-3 items-center option-row">
-                            <input type="text" name="options[]" required
-                                   class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
-                                   placeholder="Option C">
-                            <label class="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-xl cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                                <input type="radio" name="correct_answer_index" value="2" required class="w-5 h-5">
-                                <span class="text-gray-900 dark:text-white font-semibold">Correct</span>
-                            </label>
-                        </div>
-                        <div class="flex gap-3 items-center option-row">
-                            <input type="text" name="options[]" required
-                                   class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
-                                   placeholder="Option D">
-                            <label class="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-xl cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
-                                <input type="radio" name="correct_answer_index" value="3" required class="w-5 h-5">
+                            <label class="flex items-center justify-center px-4 pt-3 pb-2 rounded-3xl shadow-custom cursor-pointer transition-all bg-white dark:bg-gray-800" data-correct-label style="--color-shadow:#9b9b9b;">
+                                <input type="radio" name="correct_answer_index" value="1" required class="sr-only">
                                 <span class="text-gray-900 dark:text-white font-semibold">Correct</span>
                             </label>
                         </div>
                     </div>
+                    
+                    <button type="button" id="addOptionBtn" 
+                            class="mt-3 px-4 py-2 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all">
+                        <i class="fa-solid fa-plus mr-2"></i>Add Option
+                    </button>
+                    
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Select one option as the correct answer</p>
                 </div>
 
                 <button type="submit" 
-                        class="px-6 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-xl font-bold hover:shadow-xl transition-all">
+                        class="px-6 py-3 bg-linear-to-r from-green-600 to-blue-600 text-white rounded-xl font-bold hover:shadow-xl transition-all">
                     <i class="fa-solid fa-plus mr-2"></i>Add Question
                 </button>
             </form>
@@ -155,6 +146,105 @@
             correctAnswerInput.name = 'correct_answer';
             correctAnswerInput.value = letters[correctIndex.value];
             this.appendChild(correctAnswerInput);
+        });
+
+        // Handle dynamic options and green shadow
+        document.addEventListener('DOMContentLoaded', function() {
+            const optionsContainer = document.getElementById('optionsContainer');
+            const addOptionBtn = document.getElementById('addOptionBtn');
+            let optionCount = 2; // Start with 2 options
+            const maxOptions = 6;
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+            // Function to update label styles
+            function updateLabelStyles() {
+                const labels = document.querySelectorAll('[data-correct-label]');
+                const radioButtons = document.querySelectorAll('input[name="correct_answer_index"]');
+                
+                // Reset all labels to gray shadow
+                labels.forEach(label => {
+                    label.style.setProperty('--color-shadow', '#9b9b9b');
+                });
+
+                // Set green shadow for checked label
+                radioButtons.forEach(radio => {
+                    if (radio.checked) {
+                        const label = radio.closest('[data-correct-label]');
+                        if (label) {
+                            label.style.setProperty('--color-shadow', '#22c55e');
+                        }
+                    }
+                });
+            }
+
+            // Function to update radio button indices
+            function updateRadioIndices() {
+                const rows = optionsContainer.querySelectorAll('.option-row');
+                rows.forEach((row, index) => {
+                    const radio = row.querySelector('input[type="radio"]');
+                    const textInput = row.querySelector('input[type="text"]');
+                    if (radio) radio.value = index;
+                    if (textInput) textInput.placeholder = `Option ${letters[index]}`;
+                });
+            }
+
+            // Function to create a new option row
+            function createOptionRow(index) {
+                const row = document.createElement('div');
+                row.className = 'flex gap-3 items-center option-row';
+                row.innerHTML = `
+                    <input type="text" name="options[]" required
+                           class="flex-1 px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                           style="--color-shadow:#9b9b9b;"
+                           placeholder="Option ${letters[index]}">
+                    <label class="flex items-center justify-center px-4 pt-3 pb-2 rounded-3xl shadow-custom cursor-pointer transition-all bg-white dark:bg-gray-800" data-correct-label style="--color-shadow:#9b9b9b;">
+                        <input type="radio" name="correct_answer_index" value="${index}" required class="sr-only">
+                        <span class="text-gray-900 dark:text-white font-semibold">Correct</span>
+                    </label>
+                    <button type="button" class="delete-option px-3 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-all">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                return row;
+            }
+
+            // Add option button click handler
+            addOptionBtn.addEventListener('click', function() {
+                if (optionCount >= maxOptions) {
+                    alert(`Maximum ${maxOptions} options allowed`);
+                    return;
+                }
+
+                const newRow = createOptionRow(optionCount);
+                optionsContainer.appendChild(newRow);
+                optionCount++;
+
+                // Add event listener to the new radio button
+                const newRadio = newRow.querySelector('input[type="radio"]');
+                newRadio.addEventListener('change', updateLabelStyles);
+
+                // Add event listener to delete button
+                const deleteBtn = newRow.querySelector('.delete-option');
+                deleteBtn.addEventListener('click', function() {
+                    if (optionCount <= 2) {
+                        alert('Minimum 2 options required');
+                        return;
+                    }
+                    newRow.remove();
+                    optionCount--;
+                    updateRadioIndices();
+                    updateLabelStyles();
+                });
+            });
+
+            // Initial event listeners for existing radio buttons
+            const initialRadios = document.querySelectorAll('input[name="correct_answer_index"]');
+            initialRadios.forEach(radio => {
+                radio.addEventListener('change', updateLabelStyles);
+            });
+
+            // Initial check
+            updateLabelStyles();
         });
     </script>
 @endsection

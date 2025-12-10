@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Quiz;
 use App\Repositories\QuizRepository;
 use App\Repositories\MaterialRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class QuizService
 {
@@ -18,31 +20,31 @@ class QuizService
         $this->materialRepository = $materialRepository;
     }
 
-    public function getAllQuizzes()
+    public function getAllQuizzes(): Collection
     {
         return $this->quizRepository->getAllQuizzes();
     }
 
-    public function getAllMaterials()
+    public function getAllMaterials(): Collection
     {
         return $this->materialRepository->getAllMaterials();
     }
-    public function getQuizById($id)
+    public function getQuizById($id): ?Quiz
     {
         return $this->quizRepository->getQuizById($id);
     }
 
-    public function createQuiz($data)
+    public function createQuiz($data): Quiz
     {
         return $this->quizRepository->createQuiz($data);
     }
 
-    public function updateQuiz($id, $data)
+    public function updateQuiz($id, $data): bool
     {
         return $this->quizRepository->updateQuiz($id, $data);
     }
 
-    public function deleteQuiz($data)
+    public function deleteQuiz($data): ?bool
     {
         return $this->quizRepository->deleteQuiz($data);
     }

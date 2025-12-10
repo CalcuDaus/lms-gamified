@@ -27,7 +27,7 @@
                         <td>
                             @if ($badge->icon)
                                 <img src="{{ asset('storage/' . $badge->icon) }}" alt="{{ $badge->name }}"
-                                    class="w-10 h-10 object-cover rounded-md">
+                                    class="w-10 h-10 object-cover rounded-md" loading="lazy">
                             @else
                                 <span class="text-gray-400 text-sm italic">No icon</span>
                             @endif

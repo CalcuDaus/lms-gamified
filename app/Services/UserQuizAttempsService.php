@@ -63,11 +63,11 @@ class UserQuizAttempsService
         $xpEarned = 0;
         if ($passed) {
             $xpEarned = $quiz->xp_reward;
-            
-            // Award XP to user
+
+            // Award XP to user using the User model's addXp method
+            // This automatically triggers level up checks and badge awarding
             $user = $this->userRepository->getUserById($userId);
-            $newXp = $user->xp + $xpEarned;
-            $this->userRepository->updateUser($userId, ['xp' => $newXp]);
+            $user->addXp($xpEarned);
             
             // Log XP
             $this->xpLogService->logXp(
@@ -101,7 +101,7 @@ class UserQuizAttempsService
     /**
      * Get quiz results for a specific attempt.
      */
-    public function getQuizResults($attemptId)
+    public function getQuizResults($attemptId): ?\App\Models\UserQuizAttemps
     {
         return $this->attempsRepository->getAttemptById($attemptId);
     }

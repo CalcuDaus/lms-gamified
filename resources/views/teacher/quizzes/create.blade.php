@@ -5,7 +5,7 @@
         {{-- Header --}}
         <div class="flex gap-4 justify-between w-full items-center text-gray-600 dark:text-[#EEEEEE] shadow-custom rounded-3xl p-6 mb-6">
             <div>
-                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Add Quiz</h1>
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">{{ __('messages.add_quiz') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400">{{ $material->title }}</p>
             </div>
             <button onclick="history.back()" 
@@ -21,10 +21,11 @@
 
                 <div class="mb-6">
                     <label for="title" class="block text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        Quiz Title <span class="text-red-500">*</span>
+                        {{ __('messages.quiz_title') }} <span class="text-red-500">*</span>
                     </label>
                     <input type="text" name="title" id="title" required value="{{ old('title') }}"
-                           class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
+                           class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                           style="--color-shadow:#9b9b9b;"
                            placeholder="e.g., Laravel Basics Quiz">
                     @error('title')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -34,10 +35,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                     <div>
                         <label for="time_limit" class="block text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                            Time Limit (minutes) <span class="text-red-500">*</span>
+                            {{ __('messages.time_limit_minutes') }} <span class="text-red-500">*</span>
                         </label>
                         <input type="number" name="time_limit" id="time_limit" required min="1" value="{{ old('time_limit', 15) }}"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">
+                               class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                               style="--color-shadow:#9b9b9b;">
                         @error('time_limit')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -48,7 +50,8 @@
                             Passing Score (%) <span class="text-red-500">*</span>
                         </label>
                         <input type="number" name="passing_score" id="passing_score" required min="0" max="100" value="{{ old('passing_score', 70) }}"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">
+                               class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                               style="--color-shadow:#9b9b9b;">
                         @error('passing_score')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -59,7 +62,8 @@
                             XP Reward <span class="text-red-500">*</span>
                         </label>
                         <input type="number" name="xp_reward" id="xp_reward" required min="0" value="{{ old('xp_reward', 100) }}"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">
+                               class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                               style="--color-shadow:#9b9b9b;">
                         @error('xp_reward')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -75,7 +79,7 @@
 
                 <div class="flex gap-4">
                     <button type="submit" 
-                            class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
+                            class="px-8 py-4 bg-linear-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
                         <i class="fa-solid fa-check mr-2"></i>Create Quiz
                     </button>
                     <button type="button" onclick="history.back()"

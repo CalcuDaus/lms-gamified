@@ -5,13 +5,13 @@
         {{-- Header --}}
         <div class="flex gap-4 justify-between w-full items-center text-gray-600 dark:text-[#EEEEEE] shadow-custom rounded-3xl p-6 mb-6">
             <div>
-                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Edit Course</h1>
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">{{ __('messages.edit_course') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400">{{ $course->title }}</p>
             </div>
             <div class="flex gap-3">
                 <a href="{{ route('teacher.analytics.course', $course->id) }}" 
                    class="px-6 py-3 bg-purple-600 text-white rounded-xl font-semibold hover:shadow-xl transition-all">
-                    <i class="fa-solid fa-chart-line mr-2"></i>Analytics
+                    <i class="fa-solid fa-chart-line mr-2"></i>{{ __('messages.analytics') }}
                 </a>
                 <a href="{{ route('teacher.courses.index') }}" 
                    class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-semibold hover:shadow-lg transition-all">
@@ -22,27 +22,30 @@
 
         {{-- Course Details Form --}}
         <div class="shadow-custom rounded-3xl p-6 mb-6 w-full">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Course Details</h3>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ __('messages.course_details') }}</h3>
             <form action="{{ route('teacher.courses.update', $course->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-gray-900 dark:text-white font-semibold mb-2">Course Title</label>
+                        <label class="block text-gray-900 dark:text-white font-semibold mb-2">{{ __('messages.course_title') }}</label>
                         <input type="text" name="title" value="{{ $course->title }}" required
-                               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">
+                               class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                               style="--color-shadow:#9b9b9b;">
                     </div>
                     <div>
-                        <label class="block text-gray-900 dark:text-white font-semibold mb-2">Course Thumbnail</label>
+                        <label class="block text-gray-900 dark:text-white font-semibold mb-2">{{ __('messages.course_thumbnail') }}</label>
                         <input type="file" name="thumbnail" accept="image/*"
-                               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                               class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                               style="--color-shadow:#9b9b9b;">
                     </div>
                 </div>
                 <div class="mt-4">
-                    <label class="block text-gray-900 dark:text-white font-semibold mb-2">Description</label>
+                    <label class="block text-gray-900 dark:text-white font-semibold mb-2">{{ __('messages.description') }}</label>
                     <textarea name="description" rows="3" required
-                              class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">{{ $course->description }}</textarea>
+                              class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                              style="--color-shadow:#9b9b9b;">{{ $course->description }}</textarea>
                 </div>
                 <button type="submit" class="mt-4 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all">
                     <i class="fa-solid fa-save mr-2"></i>Update Course

@@ -14,10 +14,16 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+    // Register custom middleware aliases
     $middleware->alias([
         'ensureIsAdmin' => EnsureIsAdmin::class,
         'ensureIsTeacher' => EnsureIsTeacher::class,
         'nonAuth' => nonAuth::class
+    ]);
+    
+    // Apply SetLocale middleware to all web routes
+    $middleware->web(append: [
+        \App\Http\Middleware\SetLocale::class,
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

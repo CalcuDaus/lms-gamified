@@ -1,18 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\CourseService;
 use App\Services\MaterialService;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\MaterialRequest;
 
 class MaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     protected $materialService;
     protected $courseService;
 
@@ -21,6 +17,7 @@ class MaterialController extends Controller
         $this->materialService = $materialService;
         $this->courseService = $courseService;
     }
+
     public function index()
     {
         $data = [
@@ -30,9 +27,6 @@ class MaterialController extends Controller
         return view('admin.materials.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $data = [
@@ -42,26 +36,17 @@ class MaterialController extends Controller
         return view('admin.materials.create', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(MaterialRequest $request)
     {
         $this->materialService->createMaterial($request->validated());
         return redirect()->route('materials.index')->with('success', 'Material created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $data = [
@@ -73,18 +58,12 @@ class MaterialController extends Controller
         return view('admin.materials.edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(MaterialRequest $request, string $id)
     {
         $this->materialService->updateMaterial($id, $request->validated());
         return redirect()->route('materials.index')->with('success', 'Material updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $this->materialService->deleteMaterial($id);

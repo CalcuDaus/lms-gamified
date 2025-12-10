@@ -68,10 +68,10 @@
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 font-sans antialiased min-h-screen">
+<body class="bg-linear-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 font-sans antialiased min-h-screen">
     {{-- Top Progress Bar - Duolingo Style --}}
     <div class="w-full h-3 bg-gray-200 dark:bg-gray-700 sticky top-0 z-50 shadow-md">
-        <div id="progressBar" class="h-full bg-gradient-to-r from-green-400 via-green-500 to-emerald-600 progress-bar-animate rounded-r-full transition-all duration-500"
+        <div id="progressBar" class="h-full bg-linear-to-r from-green-400 via-green-500 to-emerald-600 progress-bar-animate rounded-r-full transition-all duration-500"
             style="width: 0%"></div>
     </div>
 
@@ -87,7 +87,7 @@
                 <div class="text-sm text-gray-600 dark:text-gray-400 font-bold">
                     <span id="currentQuestion">1</span> / {{ $quiz->questions->count() }}
                 </div>
-                <div class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full font-bold shadow-lg">
+                <div class="px-4 py-2 bg-linear-to-r from-yellow-400 to-orange-500 text-white rounded-full font-bold shadow-lg">
                     <i class="fa-solid fa-star mr-1"></i>{{ $quiz->xp_reward }} XP
                 </div>
             </div>
@@ -95,14 +95,14 @@
 
         {{-- Quiz Title Card --}}
         <div id="titleCard" class="mb-8 text-center question-enter">
-            <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white mb-4 shadow-2xl">
+            <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-linear-to-r from-purple-500 to-pink-500 text-white mb-4 shadow-2xl">
                 <i class="fa-solid fa-brain text-5xl"></i>
             </div>
             <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">{{ $quiz->title }}</h1>
-            <p class="text-xl text-gray-600 dark:text-gray-400">{{ $quiz->questions->count() }} Questions</p>
+            <p class="text-xl text-gray-600 dark:text-gray-400">{{ $quiz->questions->count() }} {{ __('messages.questions') }}</p>
             <button onclick="startQuiz()" 
-                class="mt-6 px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
-                <i class="fa-solid fa-play mr-2"></i>Start Quiz
+                class="mt-6 px-8 py-4 bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all">
+                <i class="fa-solid fa-play mr-2"></i>{{ __('messages.start_quiz') }}
             </button>
         </div>
 
@@ -115,7 +115,7 @@
                         {{-- Question Text --}}
                         <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl p-8 mb-6 question-enter">
                             <div class="flex items-start gap-4">
-                                <div class="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                                <div class="shrink-0 w-12 h-12 rounded-full bg-linear-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
                                     {{ $index + 1 }}
                                 </div>
                                 <div class="flex-1">
@@ -162,15 +162,15 @@
                             
                             @if ($index < $quiz->questions->count() - 1)
                                 <button type="button" onclick="nextQuestion()" 
-                                    class="flex-1 px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold hover:shadow-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    class="flex-1 px-6 py-4 bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold hover:shadow-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                     id="nextBtn{{ $index }}" disabled>
-                                    Continue<i class="fa-solid fa-chevron-right ml-2"></i>
+                                    {{ __('messages.continue') }}<i class="fa-solid fa-chevron-right ml-2"></i>
                                 </button>
                             @else
                                 <button type="button" onclick="submitQuiz()" 
-                                    class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-2xl font-bold hover:shadow-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    class="flex-1 px-6 py-4 bg-linear-to-r from-purple-500 to-pink-600 text-white rounded-2xl font-bold hover:shadow-xl hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                     id="submitBtn" disabled>
-                                    <i class="fa-solid fa-check-circle mr-2"></i>Submit Quiz
+                                    <i class="fa-solid fa-check-circle mr-2"></i>{{ __('messages.submit_quiz') }}
                                 </button>
                             @endif
                         </div>
@@ -181,7 +181,7 @@
 
         {{-- Timer Display (if applicable) --}}
         @if ($quiz->time_limit)
-            <div id="timerDisplay" class="hidden fixed top-20 right-4 bg-gradient-to-r from-red-500 to-orange-600 text-white px-6 py-3 rounded-2xl shadow-2xl font-bold text-xl z-40">
+            <div id="timerDisplay" class="hidden fixed top-20 right-4 bg-linear-to-r from-red-500 to-orange-600 text-white px-6 py-3 rounded-2xl shadow-2xl font-bold text-xl z-40">
                 <i class="fa-solid fa-clock mr-2"></i><span id="timerText">{{ $quiz->time_limit }}:00</span>
             </div>
         @endif
@@ -270,8 +270,8 @@
                 text: 'Are you ready to submit your answers?',
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonText: 'Yes, Submit!',
-                cancelButtonText: 'Review Answers',
+                confirmButtonText: "{{ __('messages.yes_submit') }}",
+                cancelButtonText: "{{ __('messages.review_answers') }}",
                 confirmButtonColor: '#10b981',
                 customClass: {
                     popup: 'rounded-3xl'
@@ -280,7 +280,7 @@
                 if (result.isConfirmed) {
                     // Show loading
                     Swal.fire({
-                        title: 'Grading your quiz...',
+                        title: "{{ __('messages.grading_quiz') }}",
                         html: '<i class="fa-solid fa-spinner fa-spin text-6xl text-blue-600"></i>',
                         showConfirmButton: false,
                         allowOutsideClick: false

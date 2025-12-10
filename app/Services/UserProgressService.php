@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\UserProgress;
 use App\Repositories\UserProgressRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class UserProgressService
 {
@@ -15,26 +17,26 @@ class UserProgressService
         $this->userProgressRepository = $userProgressRepository;
     }
 
-    public function getCoursesTaken($id)
+    public function getCoursesTaken($id): int
     {
         return $this->userProgressRepository->getCoursesTaken($id);
     }
-    public function takeACourse($userId, $courseId)
+    public function takeACourse($userId, $courseId): UserProgress
     {
         return $this->userProgressRepository->takeACourse($userId, $courseId);
     }
 
-    public function getStudentCountByTeacher($teacherId)
+    public function getStudentCountByTeacher($teacherId): int
     {
         return $this->userProgressRepository->getStudentCountByTeacher($teacherId);
     }
 
-    public function getStudentsByCourse($courseId)
+    public function getStudentsByCourse($courseId): Collection
     {
         return $this->userProgressRepository->getStudentsByCourse($courseId);
     }
 
-    public function getStudentProgressInTeacherCourses($userId, $teacherId)
+    public function getStudentProgressInTeacherCourses($userId, $teacherId): Collection
     {
         return $this->userProgressRepository->getStudentProgressInTeacherCourses($userId, $teacherId);
     }

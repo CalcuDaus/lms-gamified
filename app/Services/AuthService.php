@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Services\OTPService;
+use App\Services\ImageService;
 use App\Events\UserRegistered;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
@@ -15,16 +16,18 @@ class AuthService
      * Create a new class instance.
      */
     protected $userRepository;
+    protected $imageService;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, ImageService $imageService)
     {
         $this->userRepository = $userRepository;
+        $this->imageService = $imageService;
     }
     public function register($data)
     {
         $avatarPath = null;
         if (isset($data['avatar']) && $data['avatar'] instanceof \Illuminate\Http\UploadedFile) {
-            $avatarPath = $data['avatar']->store('avatars', 'public'); // => "avatars/namafile.jpg"
+            $avatarPath = $this->imageService->convertAndStore($data['avatar'], 'avatars');
         }
 
         session(['register_data' => [

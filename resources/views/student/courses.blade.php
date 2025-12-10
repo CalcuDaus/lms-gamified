@@ -4,7 +4,7 @@
     <div class="flex justify-center items-center font-balo max-w-[1000px] flex-col mx-auto">
         <section title="Search Bar" class="w-full dark:text-[#d6d6d6]">
             <div class="w-full flex justify-center  ">
-                <input type="text" placeholder="Search courses..."
+                <input type="text" id="courseSearch" placeholder="{{ __('messages.search_courses') }}"
                     class="sm:w-1/2 w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none"
                     style="--color-shadow:#9b9b9b;">
                 <i
@@ -12,22 +12,25 @@
             </div>
         </section>
 
-        <section class="flex w-full justify-center gap-7 mt-10 flex-wrap">
+        <section id="coursesContainer" class="flex w-full justify-center gap-7 mt-10 flex-wrap">
             @forelse ($courses as $course)
-                <div class="flex gap-2 min-w-3xs max-w-[300px] flex-col text-gray-600 dark:text-[#9b9b9b] hover:dark:text-[#d6d6d6] transition-all duration-300 shadow-custom rounded-3xl p-6"
+                <div class="course-card flex gap-2 min-w-3xs max-w-[300px] flex-col text-gray-600 dark:text-[#9b9b9b] hover:dark:text-[#d6d6d6] transition-all duration-300 shadow-custom rounded-3xl p-6"
+                    data-course-title="{{ strtolower($course->title) }}"
+                    data-course-description="{{ strtolower($course->description) }}"
+                    data-course-teacher="{{ strtolower($course->user->name) }}"
                     style="--color-shadow:#9b9b9b;">
                     <img src="https://picsum.photos/id/237/600/400" class="rounded-md" alt="" width="100%">
                     <div class="h-16 overflow-hidden mt-2 ">
                         <h3 class="font-black text-2xl">{{ Str::limit($course->title,35) }}</h3>
                     </div>
                     <p class="text-sm -mt-1">{{ Str::limit($course->description,70) }}</p>
-                    <p class="text-[12px] -mt-1 text-gray-500">By {{ Str::ucfirst($course->user->name) }}</p>
+                    <p class="text-[12px] -mt-1 text-gray-500">{{ __('messages.by') }} {{ Str::ucfirst($course->user->name) }}</p>
                     <div class="flex justify-between items-center mt-4">
-                        <span class="font-bold text-lg">Free</span>
+                        <span class="font-bold text-lg">{{ __('messages.free') }}</span>
                         <a href="{{ route('student.courses.show', $course->id) }}"
                             class="relative inline-flex active:translate-y-0.5 items-center justify-center px-5 py-2 overflow-hidden tracking-tighter text-white bg-gray-800 rounded-xl group">
                             @php
-                                $colors = ['orange','red','blue','amber','indigo','green'];
+                            $colors = ['red','blue','amber','indigo','green'];
                             @endphp
                             <span
                                 class="absolute w-0 h-0 transition-all duration-600 ease-out bg-{{ Arr::random($colors)}}-600 rounded-full group-hover:w-56 group-hover:h-56"></span>
@@ -49,13 +52,63 @@
                             </span>
                             <span
                                 class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-linear-to-b from-transparent via-transparent to-gray-200"></span>
-                            <span class="relative text-base font-semibold">View course</span>
+                            <span class="relative text-base font-semibold">{{ __('messages.view_course') }}</span>
                         </a>
                     </div>
                 </div>
             @empty
-                <p class="text-gray-600 dark:text-[#9b9b9b]">No courses found</p>
+                <p class="text-gray-600 dark:text-[#9b9b9b]">{{ __('messages.no_courses_found') }}</p>
             @endforelse
         </section>
+
+        {{-- Pagination --}}
+        @if($courses->hasPages())
+        <section class="w-full mt-8 flex flex-col items-center">
+            {{ $courses->links() }}
+        </section>
+        @endif
+        
+        {{-- No Results Message --}}
+        <div id="noResults" class="hidden w-full text-center py-10">
+            <i class="fa-solid fa-magnifying-glass text-6xl text-gray-300 dark:text-gray-600 mb-4"></i>
+            <p class="text-xl font-semibold text-gray-600 dark:text-gray-400">{{ __('messages.no_courses_found') }}</p>
+            <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">{{ __('messages.try_different_keywords') }}</p>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('courseSearch');
+            const courseCards = document.querySelectorAll('.course-card');
+            const noResults = document.getElementById('noResults');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                courseCards.forEach(card => {
+                    const title = card.getAttribute('data-course-title');
+                    const description = card.getAttribute('data-course-description');
+                    const teacher = card.getAttribute('data-course-teacher');
+
+                    // Check if search term matches title, description, or teacher name
+                    if (title.includes(searchTerm) || 
+                        description.includes(searchTerm) || 
+                        teacher.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 @endsection

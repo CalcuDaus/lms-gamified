@@ -12,10 +12,12 @@ class UserService
      * Create a new class instance.
      */
     protected $userRepository;
+    protected $imageService;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, ImageService $imageService)
     {
         $this->userRepository = $userRepository;
+        $this->imageService = $imageService;
     }
 
     public function getUserById($id)
@@ -34,7 +36,7 @@ class UserService
             $data['password'] = Hash::make($data['password']);
         }
         if (request()->hasFile('avatar')) {
-            $data['avatar'] = request()->file('avatar')->store('avatars', 'public');
+            $data['avatar'] = $this->imageService->convertAndStore(request()->file('avatar'), 'avatars');
         }
         return $this->userRepository->createUser($data);
     }
@@ -47,7 +49,12 @@ class UserService
         }
 
         if (request()->hasFile('avatar')) {
-            $data['avatar'] = request()->file('avatar')->store('avatars', 'public');
+            // Delete old avatar if exists
+            $user = $this->userRepository->getUserById($id);
+            if ($user->avatar) {
+                $this->imageService->delete($user->avatar);
+            }
+            $data['avatar'] = $this->imageService->convertAndStore(request()->file('avatar'), 'avatars');
         } else {
             $user = $this->userRepository->getUserById($id);
             $data['avatar'] = $user->avatar;
@@ -58,7 +65,7 @@ class UserService
     {
         $user = $this->userRepository->getUserById($id);
         if ($user->avatar) {
-            Storage::disk('public')->delete($user->avatar);
+            $this->imageService->delete($user->avatar);
         }
         return $this->userRepository->deleteUser($id);
     }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register Page</title>
+    <title>{{ __('messages.register_page') }}</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -24,7 +24,7 @@
                     class="lg:w-1/2 w-full h-full flex lg:border-r-2 border-b-2 border-gray-300 flex-col lg:px-10 px-5 py-8 justify-center items-center">
                     <div class="flex flex-col gap-4 w-full">
                         <div class="flex flex-col">
-                            <label for="name" class="text-gray-700 w-full">Name <span
+                            <label for="name" class="text-gray-700 w-full">{{ __('messages.name') }} <span
                                     class="text-red-500">*</span></label>
                             <input type="text" id="name" name="name" autocomplete="off"
                                 class="p-2 border-2 focus:outline-none w-full shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
@@ -34,7 +34,7 @@
                             @enderror
                         </div>
                         <div class="flex flex-col">
-                            <label for="email" class="text-gray-700">Email <span
+                            <label for="email" class="text-gray-700">{{ __('messages.email') }} <span
                                     class="text-red-500">*</span></label>
                             <input type="email" id="email" name="email" autocomplete="off"
                                 class="p-2 border-2 focus:outline-none shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
@@ -45,7 +45,7 @@
                         </div>
                         <div class="flex gap-1 items-center">
                             <div class="w-1/2">
-                                <label for="password" class="text-gray-700 w-full">Password <span
+                                <label for="password" class="text-gray-700 w-full">{{ __('messages.password') }} <span
                                         class="text-red-500">*</span></label>
                                 <input type="password" id="password" name="password" autocomplete="off"
                                     class="p-2 border-2 focus:outline-none w-full shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
@@ -55,7 +55,7 @@
                                 @enderror
                             </div>
                             <div class="w-1/2">
-                                <label for="password_confirmation" class="text-gray-700 w-full">Konfirmasi Password
+                                <label for="password_confirmation" class="text-gray-700 w-full">{{ __('messages.confirm_password') }}
                                     <span class="text-red-500">*</span></label>
                                 <input type="password" id="password_confirmation" name="password_confirmation"
                                     autocomplete="off"
@@ -67,13 +67,13 @@
                             </div>
                         </div>
                         <div class="flex flex-col">
-                            <label for="role">Select Role <span class="text-red-500">*</span></label>
+                            <label for="role">{{ __('messages.select_role_label') }} <span class="text-red-500">*</span></label>
                             <select name="role" id="role"
                                 class="p-2 border-2 focus:outline-none shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
                                 required>
-                                <option value="" disabled selected>-- Select Role --</option>
-                                <option value="teacher">Teacher</option>
-                                <option value="student">Student</option>
+                                <option value="" disabled selected>{{ __('messages.select_role') }}</option>
+                                <option value="teacher">{{ __('messages.teacher') }}</option>
+                                <option value="student">{{ __('messages.student') }}</option>
                             </select>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                 <div class="lg:w-1/2 w-full h-full flex flex-col lg:px-10 px-5 py-5 justify-center items-center">
                     <div class="flex flex-col gap-4 w-full">
                         <div class="flex flex-col">
-                            <label for="foto_profil" class="text-gray-700">Foto Profil <span
+                            <label for="foto_profil" class="text-gray-700">{{ __('messages.profile_photo') }} <span
                                     class="text-red-500">*</span></label>
                             <div class="flex items-center justify-center w-full h-36">
                                 <label for="dropzone-file"
@@ -96,9 +96,8 @@
                                                 d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                         </svg>
                                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                                class="font-semibold">Click to upload</span> or drag and drop</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX.
-                                            800x400px)</p>
+                                                class="font-semibold">{{ __('messages.click_to_upload') }}</span> {{ __('messages.or_drag_drop') }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">{{ __('messages.image_format_limit') }}</p>
                                     </div>
                                     <input id="dropzone-file" name="avatar" type="file" class="hidden" />
                                 </label>
@@ -108,7 +107,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col">
-                            <label for="phone" class="text-gray-700">Nomor HP<span
+                            <label for="phone" class="text-gray-700">{{ __('messages.phone_number') }}<span
                                     class="text-red-500">*</span></label>
                             <input type="text" id="phone" name="phone"
                                 class="p-2 border-2 focus:outline-none shadow-[0_3px_0_var(--color-gray-300)] border-gray-300  rounded-md"
@@ -118,9 +117,9 @@
                             @enderror
                         </div>
                         <button type="submit"
-                            class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">Daftar</button>
-                        <p class="text-gray-500 text-sm">Sudah punya akun? <a href="{{ route('login') }}"
-                                class="text-blue-500">Masuk</a>
+                            class="bg-blue-500 shadow-[0_5px_0_var(--color-blue-700)] active:shadow-none active:translate-y-0.5 text-white p-2 rounded-md ">{{ __('messages.register_button') }}</button>
+                        <p class="text-gray-500 text-sm">{{ __('messages.already_have_account') }} <a href="{{ route('login') }}"
+                                class="text-blue-500">{{ __('messages.login_link') }}</a>
                         </p>
                     </div>
                 </div>
@@ -144,7 +143,7 @@
         @if (session('success'))
             Swal.fire({
                 icon: 'success',
-                title: 'Success',
+                title: '{{ __('messages.success') }}',
                 theme: 'auto',
                 text: '{{ session('success') }}',
                 timer: 3000,
@@ -153,7 +152,7 @@
         @elseif (session('error'))
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
+                title: '{{ __('messages.error') }}',
                 theme: 'auto',
                 text: '{{ session('error') }}',
                 timer: 3000,

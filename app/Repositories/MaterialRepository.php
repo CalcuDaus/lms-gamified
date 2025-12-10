@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Material;
+use Illuminate\Database\Eloquent\Collection;
 
 class MaterialRepository
 {
@@ -17,7 +18,7 @@ class MaterialRepository
     /**
      * Get all materials.
      */
-    public function getAllMaterials()
+    public function getAllMaterials(): Collection
     {
         return Material::all();
     }
@@ -25,21 +26,21 @@ class MaterialRepository
     /**
      * Get a material by ID.
      */
-    public function getMaterialById($id)
+    public function getMaterialById($id): ?Material
     {
         return Material::find($id);
     }
 
-    public function createMaterial($data)
+    public function createMaterial($data): Material
     {
         return Material::create($data);
     }
-    public function updateMaterial($id, $data)
+    public function updateMaterial($id, $data): bool
     {
         return Material::find($id)->update($data);
     }
 
-    public function deleteMaterial($data)
+    public function deleteMaterial($data): ?bool
     {
         return Material::find($data)->delete();
     }

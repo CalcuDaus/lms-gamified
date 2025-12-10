@@ -25,7 +25,8 @@
                         Question Text <span class="text-red-500">*</span>
                     </label>
                     <textarea name="question_text" required rows="3"
-                              class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all">{{ $question->question_text }}</textarea>
+                              class="w-full px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                              style="--color-shadow:#9b9b9b;">{{ $question->question_text }}</textarea>
                 </div>
 
                 <div class="mb-6">
@@ -40,7 +41,8 @@
                         @foreach($options as $key => $option)
                             <div class="flex gap-3 items-center">
                                 <input type="text" name="options[]" required value="{{ $option }}"
-                                       class="flex-1 px-4 py-3 rounded-xl border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-blue-500 transition-all"
+                                       class="flex-1 px-4 pt-3 pb-2 rounded-3xl shadow-custom focus:outline-none text-gray-900 dark:text-white bg-white dark:bg-gray-800"
+                                       style="--color-shadow:#9b9b9b;"
                                        placeholder="Option {{ $key }}">
                                 <label class="flex items-center gap-2 px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-xl cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-600 transition-all">
                                     <input type="radio" name="correct_answer_index" value="{{ array_search($key, $optionKeys) }}" 
@@ -54,7 +56,7 @@
 
                 <div class="flex gap-4">
                     <button type="submit" 
-                            class="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
+                            class="px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:shadow-2xl transition-all">
                         <i class="fa-solid fa-save mr-2"></i>Update Question
                     </button>
                     <button type="button" onclick="history.back()"

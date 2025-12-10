@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Material;
 use App\Repositories\MaterialRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class MaterialService
 {
@@ -15,27 +17,27 @@ class MaterialService
         $this->materialRepository = $materialRepository;
     }
 
-    public function getAllMaterials()
+    public function getAllMaterials(): Collection
     {
         return $this->materialRepository->getAllMaterials();
     }
 
-    public function getMaterialById($id)
+    public function getMaterialById($id): ?Material
     {
         return $this->materialRepository->getMaterialById($id);
     }
 
-    public function createMaterial($data)
+    public function createMaterial($data): Material
     {
         return $this->materialRepository->createMaterial($data);
     }
 
-    public function updateMaterial($id, $data)
+    public function updateMaterial($id, $data): bool
     {
         return $this->materialRepository->updateMaterial($id, $data);
     }
 
-    public function deleteMaterial($id)
+    public function deleteMaterial($id): ?bool
     {
         return $this->materialRepository->deleteMaterial($id);
     }

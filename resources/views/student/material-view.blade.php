@@ -16,7 +16,7 @@
     <div class="min-h-screen flex flex-col">
         {{-- Top Progress Bar --}}
         <div class="w-full h-2 bg-gray-200 dark:bg-gray-800">
-            <div class="h-full bg-gradient-to-r from-green-500 to-emerald-600 transition-all duration-500"
+            <div class="h-full bg-linear-to-r from-green-500 to-emerald-600 transition-all duration-500"
                 style="width: {{ $progress }}%"></div>
         </div>
 
@@ -26,16 +26,16 @@
                 <a href="{{ route('student.courses.learn', $course->id) }}"
                     class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                     <i class="fa-solid fa-arrow-left"></i>
-                    <span class="font-semibold">Back to Course</span>
+                    <span class="font-semibold">{{ __('messages.back_to_course') }}</span>
                 </a>
 
                 <div class="flex items-center gap-4">
                     <div class="text-sm text-gray-600 dark:text-gray-400">
                         <i class="fa-solid fa-book-open mr-1"></i>
-                        Material {{ $materialIndex + 1 }}/{{ $totalMaterials }}
+                        {{ __('messages.material') }} {{ $materialIndex + 1 }}/{{ $totalMaterials }}
                     </div>
                     <div
-                        class="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full font-bold text-sm shadow-md">
+                        class="px-4 py-2 bg-linear-to-r from-yellow-400 to-orange-500 text-white rounded-full font-bold text-sm shadow-md">
                         <i class="fa-solid fa-star mr-1"></i>{{ $material->xp_reward }} XP
                     </div>
                 </div>
@@ -47,7 +47,7 @@
             <div class="max-w-3xl mx-auto">
                 {{-- Material Title --}}
                 <div class="mb-8 text-center">
-                    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r 
+                    <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-linear-to-r 
                         {{ $gradients[$materialIndex % count($gradients)]['from'] }} 
                         {{ $gradients[$materialIndex % count($gradients)]['to'] }} 
                         text-white font-bold text-3xl shadow-lg mb-4">
@@ -66,7 +66,7 @@
                         <div class="mb-8">
                             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                                 <i class="fa-solid fa-video text-red-500"></i>
-                                Watch & Learn
+                                {{ __('messages.watch_and_learn') }}
                             </h3>
                             <div class="relative rounded-2xl overflow-hidden shadow-lg" style="padding-top: 56.25%;">
                                 <iframe 
@@ -80,13 +80,13 @@
                             </div>
                             <p class="text-sm text-gray-500 dark:text-gray-400 mt-3 text-center">
                                 <i class="fa-solid fa-lightbulb mr-1"></i>
-                                Watch the video before reading the material for best results!
+                                {{ __('messages.watch_video_tip') }}
                             </p>
                         </div>
                     @endif
 
                     {{-- Material Content --}}
-                    <div id="materialContent" class="prose prose-lg dark:prose-invert text-gray-900 dark:text-white max-w-none overflow-hidden break-words">
+                    <div id="materialContent" class="prose prose-lg dark:prose-invert text-gray-900 dark:text-white max-w-none overflow-hidden wrap-break-word">
                         {!! $material->content !!}
                     </div>
                     
@@ -212,12 +212,12 @@
                     @if ($material->file)
                         <div class="mb-6">
                             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                                <i class="fa-solid fa-paperclip mr-2 text-blue-500"></i>Attachments
+                                <i class="fa-solid fa-paperclip mr-2 text-blue-500"></i>{{ __('messages.attachments') }}
                             </h3>
                             <a href="{{ Storage::url($material->file) }}" target="_blank"
                                 class="inline-flex items-center gap-3 px-6 py-3 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-xl hover:bg-blue-200 dark:hover:bg-blue-800 transition-all">
                                 <i class="fa-solid fa-download"></i>
-                                <span class="font-semibold">Download Material Resources</span>
+                                <span class="font-semibold">{{ __('messages.download_resources') }}</span>
                             </a>
                         </div>
                     @endif
@@ -226,7 +226,7 @@
                     @if (count($material->quizzes) > 0)
                         <div>
                             <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                                <i class="fa-solid fa-clipboard-question mr-2 text-purple-500"></i>Test Your Knowledge
+                                <i class="fa-solid fa-clipboard-question mr-2 text-purple-500"></i>{{ __('messages.test_knowledge') }}
                             </h3>
                             <div class="space-y-3">
                                 @foreach ($material->quizzes as $quiz)
@@ -263,11 +263,11 @@
                                         @if ($hasPassed)
                                             <span
                                                 class="px-5 py-2 bg-green-600 text-white rounded-xl font-bold shadow-md">
-                                                <i class="fa-solid fa-trophy mr-2"></i>Completed
+                                                <i class="fa-solid fa-trophy mr-2"></i>{{ __('messages.completed') }}
                                             </span>
                                         @else
                                             <a href="{{ route('student.quiz.start', $quiz->id) }}"
-                                                class="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold hover:shadow-xl transition-all">
+                                                class="px-6 py-3 bg-linear-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold hover:shadow-xl transition-all">
                                                 <i class="fa-solid fa-play mr-2"></i>Start Quiz
                                             </a>
                                         @endif
@@ -284,7 +284,7 @@
                         <a href="{{ route('student.material.view', $previousMaterial->id) }}"
                             class="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-2xl font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-all">
                             <i class="fa-solid fa-chevron-left"></i>
-                            <span>Previous</span>
+                            <span>{{ __('messages.previous') }}</span>
                         </a>
                     @endif
 
@@ -293,7 +293,7 @@
                             @csrf
                             <input type="hidden" name="next_material_id" value="{{ $nextMaterial->id }}">
                             <button type="button" onclick="showChallenge()"
-                                class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
+                                class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
                                 <span>Continue</span>
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
@@ -303,8 +303,8 @@
                             @csrf
                             <input type="hidden" name="return_to_course" value="1">
                             <button type="submit"
-                                class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
-                                <span>Complete &amp; Return</span>
+                                class="w-full flex items-center justify-center gap-2 px-6 py-4 bg-linear-to-r from-blue-500 to-purple-600 text-white rounded-2xl font-bold hover:shadow-xl transition-all">
+                                <span>{{ __('messages.complete_and_return') }}</span>
                                 <i class="fa-solid fa-check-circle"></i>
                             </button>
                         </form>
@@ -316,7 +316,7 @@
         {{-- Footer - Minimal --}}
         <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4">
             <div class="max-w-4xl mx-auto px-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                Keep learning! 🚀 You're doing great!
+                {{ __('messages.keep_learning_footer') }}
             </div>
         </footer>
     </div>
